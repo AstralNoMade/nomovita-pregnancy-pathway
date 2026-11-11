@@ -15,6 +15,7 @@ Open `index.html` in a modern browser. No server, build step or external data is
 - **Findings on the norms.** Four observations on the rules for rewarding health workers and the obstetric care standard, each with its clause.
 - **Pathway switch registry.** Title, class, urgency and decision type of all 45 switches; the full logic of 7 switches, one per stage.
 - **Incentive model.** Switch measures on and set what share of a stage's gap each one closes. With all measures off, "after" equals "now".
+- **International evidence.** Nine international cards (country programmes and two reviews), each labelled as a fact with a primary source or a study estimate and given with a DOI or an official URL; two checks of Kazakh tariffs and reward rules against the acts; five hypotheses to test in Kazakhstan. Negative results and withdrawn programmes are included.
 - **Synthetic cases, data and method.**
 
 ## Data
