@@ -223,6 +223,11 @@ body.tour .top{position:static}
 .icard h3{font-size:17px;margin-top:6px}
 .icard p{font-size:14px;margin-top:8px}
 .icard .src{font-size:12px;color:var(--muted);margin-top:10px;word-break:break-word}
+.tour-rec{position:fixed;left:16px;top:12px;z-index:70;display:none;gap:8px;align-items:center;font:500 13px var(--fm)}
+.tour-rec.on{display:flex}
+.tour-rec button{font:600 14px var(--fb);border:0;border-radius:999px;padding:10px 16px;cursor:pointer;background:#b8513f;color:#fff;box-shadow:0 4px 16px rgba(18,16,20,.25)}
+.tour-rec button.stop{background:var(--ink)}
+.tour-rec .t{background:rgba(255,255,255,.9);border-radius:999px;padding:8px 12px;color:var(--ink)}
 footer{border-top:1px solid var(--rule);padding:26px 0 40px;margin-top:20px;font-size:13px;color:var(--muted)}
 footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -340,6 +345,7 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-con
 <div class="tour-card" id="tourCard"><div class="in"><div class="slot" id="tourSlot"></div><div class="txt"><div class="label" id="tourKick"></div><h1 style="margin-top:12px" id="tourTitle"></h1><p class="who" id="tourWho"></p><p class="links" id="tourLinks"></p></div></div></div>
 <div class="tour-cam" id="tourCam"><video id="tourVideo" autoplay muted playsinline></video></div>
 <div class="tour-cap" id="tourCap" aria-live="polite"></div>
+<div class="tour-rec" id="tourRec"><button type="button" id="recBtn">&#9679; Начать запись</button><span class="t" id="recTime" style="display:none">00:00</span></div>
 <footer><div class="wrap"><span data-t="footer"></span><span>© 2026 NOMOVITA</span></div></footer>
 
 <script>
@@ -1147,6 +1153,31 @@ renderStatic(); renderMethod(); renderAll(false);
   });
   window.addEventListener("resize", place);
   if(camOn) startCam();
+
+  /* in-page recording fallback (?rec=1): records this tab with the microphone and saves a .webm file */
+  if(q.get("rec")==="1" && navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia && window.MediaRecorder){
+    const box=$("#tourRec"), btn=$("#recBtn"), tm=$("#recTime"); box.classList.add("on");
+    let rec=null, chunks=[], t0=0, timer=null, streams=[];
+    async function start(){
+      try{
+        const scr = await navigator.mediaDevices.getDisplayMedia({video:{frameRate:30}, audio:false, preferCurrentTab:true, selfBrowserSurface:"include"});
+        const mic = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}, video:false});
+        streams=[scr,mic];
+        const mix = new MediaStream([...scr.getVideoTracks(), ...mic.getAudioTracks()]);
+        const type = ["video/webm;codecs=vp9,opus","video/webm;codecs=vp8,opus","video/webm"].find(x=>MediaRecorder.isTypeSupported(x))||"";
+        rec = new MediaRecorder(mix, type?{mimeType:type, videoBitsPerSecond:2500000}:{});
+        chunks=[]; rec.ondataavailable=e=>{ if(e.data && e.data.size) chunks.push(e.data); };
+        rec.onstop=()=>{ const blob=new Blob(chunks,{type:"video/webm"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="NomoVita_UNICEF_video.webm"; document.body.appendChild(a); a.click(); a.remove(); streams.forEach(s=>s.getTracks().forEach(tr=>tr.stop())); btn.textContent="● Записать заново"; btn.classList.remove("stop"); clearInterval(timer); };
+        scr.getVideoTracks()[0].addEventListener("ended", ()=>{ if(rec && rec.state==="recording") rec.stop(); });
+        rec.start(1000); t0=Date.now(); box.classList.remove("on"); btn.textContent="● Записать заново";
+        timer=setInterval(()=>{ const s=Math.floor((Date.now()-t0)/1000); tm.textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }, 500);
+        btn.blur();
+      }catch(e){ tm.style.display="inline"; tm.textContent="Запись не началась: "+e.message; }
+    }
+    function stop(){ if(rec && rec.state==="recording"){ rec.stop(); box.classList.add("on"); tm.style.display="inline"; tm.textContent="Видео сохранено: "+tm.textContent; } }
+    btn.addEventListener("click", ()=>{ if(rec && rec.state==="recording") stop(); else start(); });
+    document.addEventListener("keydown", e=>{ if((e.key==="s"||e.key==="S"||e.key==="ы"||e.key==="Ы") && rec && rec.state==="recording"){ e.preventDefault(); stop(); } });
+  }
   show();
 })();
 </script>
