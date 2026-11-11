@@ -198,6 +198,7 @@ td.mono{font-family:var(--fm);font-size:12.5px;white-space:nowrap}
 /* tour mode for screen recording (?tour=1) */
 .tour-cap{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:60;max-width:min(1040px,calc(100vw - 32px));background:rgba(18,16,20,.86);color:#fff;font:400 clamp(17px,1.6vw,23px)/1.45 var(--fb);padding:14px 22px;border-radius:10px;text-align:center;display:none}
 .tour-cap.on{display:block}
+.tour-cap .ru{font-size:.78em;opacity:.78;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.25)}
 .tour-cam{position:fixed;right:26px;bottom:120px;width:190px;height:190px;border-radius:50%;overflow:hidden;z-index:61;border:4px solid #fff;box-shadow:0 8px 30px rgba(18,16,20,.25);display:none;background:var(--ink2)}
 .tour-cam video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
 .tour-cam.on{display:block}
@@ -1004,8 +1005,8 @@ renderStatic(); renderMethod(); renderAll(false);
     gen++;
     card.classList.remove("on");
     STEPS[i]();
-    const txt = SUB==="off" ? "" : (CAP[SUB]||CAP.en)[i];
-    cap.textContent = txt; cap.classList.toggle("on", !!txt);
+    if(SUB==="both"){ cap.innerHTML = '<div class="ru">'+esc(CAP.ru[i])+'</div><div>'+esc(CAP.en[i])+'</div>'; cap.classList.add("on"); }
+    else { const txt = SUB==="off" ? "" : (CAP[SUB]||CAP.en)[i]; cap.textContent = txt; cap.classList.toggle("on", !!txt); }
     setTimeout(place, 30);
   }
   document.addEventListener("keydown", e=>{
