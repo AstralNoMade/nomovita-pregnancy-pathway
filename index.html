@@ -195,6 +195,23 @@ td.mono{font-family:var(--fm);font-size:12.5px;white-space:nowrap}
 .swwhy{margin-top:14px;padding:12px;border-left:3px solid var(--l500);background:var(--l50);font-size:14.5px}
 .princ{margin:12px 0 0;padding-left:18px}.princ li{margin:5px 0;font-size:14px}
 .chip.n{background:var(--ink);color:#fff;border:1px solid var(--ink)}
+/* tour mode for screen recording (?tour=1) */
+.tour-cap{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:60;max-width:min(1040px,calc(100vw - 32px));background:rgba(18,16,20,.86);color:#fff;font:400 clamp(17px,1.6vw,23px)/1.45 var(--fb);padding:14px 22px;border-radius:10px;text-align:center;display:none}
+.tour-cap.on{display:block}
+.tour-cam{position:fixed;right:26px;bottom:120px;width:190px;height:190px;border-radius:50%;overflow:hidden;z-index:61;border:4px solid #fff;box-shadow:0 8px 30px rgba(18,16,20,.25);display:none;background:var(--ink2)}
+.tour-cam video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.tour-cam.on{display:block}
+.tour-card{position:fixed;inset:0;z-index:55;background:radial-gradient(1100px 520px at 80% -10%,var(--l100),transparent 70%),var(--paper);display:none;align-items:center;justify-content:center;padding:32px}
+.tour-card.on{display:flex}
+.tour-card .in{display:flex;gap:56px;align-items:center;max-width:1180px;width:100%;flex-wrap:wrap;justify-content:center}
+.tour-card .slot{width:min(340px,70vw);height:min(340px,70vw);border-radius:50%;flex:none}
+.tour-card .txt{flex:1;min-width:280px}
+.tour-card .txt h1{font-size:clamp(30px,4vw,58px)}
+.tour-card .who{font-size:clamp(18px,1.7vw,24px);margin-top:18px;color:var(--ink2)}
+.tour-card .links{font-family:var(--fm);font-size:clamp(14px,1.2vw,17px);color:var(--l700);margin-top:18px;line-height:1.8}
+body.tour-big .tour-cam{right:auto;bottom:auto;width:min(340px,70vw);height:min(340px,70vw)}
+.tour-hl{outline:3px solid var(--l500)!important;outline-offset:6px;border-radius:6px;transition:outline-color .3s}
+body.tour .top{position:static}
 footer{border-top:1px solid var(--rule);padding:26px 0 40px;margin-top:20px;font-size:13px;color:var(--muted)}
 footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -294,6 +311,9 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-con
   </section>
 </main>
 
+<div class="tour-card" id="tourCard"><div class="in"><div class="slot" id="tourSlot"></div><div class="txt"><div class="label" id="tourKick"></div><h1 style="margin-top:12px" id="tourTitle"></h1><p class="who" id="tourWho"></p><p class="links" id="tourLinks"></p></div></div></div>
+<div class="tour-cam" id="tourCam"><video id="tourVideo" autoplay muted playsinline></video></div>
+<div class="tour-cap" id="tourCap" aria-live="polite"></div>
 <footer><div class="wrap"><span data-t="footer"></span><span>© 2026 NOMOVITA</span></div></footer>
 
 <script>
@@ -915,6 +935,90 @@ function renderAll(keepLevers){
 
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{LANG=b.dataset.lang;renderStatic();renderMethod();renderAll(false);}));
 renderStatic(); renderMethod(); renderAll(false);
+
+/* ============ Tour mode for screen recording: ?tour=1[&cam=1][&sub=en|ru|off][&lang=en|ru] ============ */
+(function(){
+  const q = new URLSearchParams(location.search);
+  if(q.get("tour")!=="1") return;
+  document.body.classList.add("tour");
+  const want = q.get("lang")==="ru" ? "ru" : "en";
+  if(LANG!==want){ document.querySelector('.lang button[data-lang="'+want+'"]').click(); }
+  let SUB = q.get("sub")||"en";
+  const CAP = {
+   en:[
+    "Hello, I am Leila Ishbayeva, founder of NomoVita in Kazakhstan. We test whether health rules and payments fit the patient pathway. Today: the pregnancy pathway.",
+    "In Kazakhstan the rules for antenatal care and the rules for paying providers sit in different legal acts. Read separately, they hide places where the pathway and the incentive pull apart.",
+    "The tool puts each stage in one line: the norm, the package, how it is paid, who is responsible, the gap and a proposed change. Each cell is marked as a fact with its legal clause, an assumption or a proposal.",
+    "Click a stage and you see the data behind the gap: fields, rule, numerator, denominator, records. All data here are synthetic.",
+    "The tool also checks the norms themselves. Primary care is scored for visiting a newborn within three days after discharge.",
+    "But the information comes from the hospital at discharge, and in the acts we reviewed the hospital gains nothing from that score. The incentive and its condition sit in different organisations.",
+    "Our registry of 45 pathway switches defines, for each event, an owner, an urgency level and an immediate action; seven are open in this demo.",
+    "Switch on support for same-day handover, and the postnatal visit stage moves with it. These numbers are assumptions you can change.",
+    "The module is open source. Next we pilot it with a primary care provider on anonymised data. With UNICEF we want other countries to reuse it. Thank you."],
+   ru:[
+    "Здравствуйте, я Лейла Ишбаева, основательница NomoVita, Казахстан. Мы проверяем, сходятся ли правила и оплата в здравоохранении с маршрутом пациента. Сегодня маршрут беременности.",
+    "В Казахстане нормы наблюдения беременных и правила оплаты лежат в разных актах. Читая их по отдельности, трудно заметить места, где маршрут и стимул расходятся.",
+    "Инструмент раскладывает каждый этап в одну строку: норма, пакет, оплата, ответственный, разрыв и предлагаемое изменение. Каждая ячейка помечена: факт с пунктом акта, допущение или предложение.",
+    "Нажимаешь на этап и видишь данные, на которых найден разрыв: поля, правило, числитель, знаменатель, записи. Все данные здесь синтетические.",
+    "Инструмент проверяет и сами нормы. Первичную помощь оценивают за патронаж новорождённого в первые трое суток после выписки.",
+    "Но сведения приходят из стационара при выписке, а стационару, по просмотренным актам, этот показатель ничего не даёт. Стимул и условие его выполнения в разных организациях.",
+    "Наш реестр из 45 переключателей задаёт для каждого события владельца, уровень срочности и немедленное действие; в демо полностью открыты семь.",
+    "Включаем поддержку передачи сведений в день выписки, и этап послеродового патронажа меняется вместе с ней. Цифры здесь допущения, их можно менять.",
+    "Модуль уже открыт. Дальше пилот с организацией первичной помощи на обезличенных данных. Вместе с ЮНИСЕФ хотим, чтобы им могли пользоваться другие страны. Спасибо."]
+  };
+  const card=$("#tourCard"), cap=$("#tourCap"), cam=$("#tourCam"), vid=$("#tourVideo"), slot=$("#tourSlot");
+  let camOn = q.get("cam")==="1", stream=null, gen=0;
+  function later(f,ms){ const g=gen; setTimeout(()=>{ if(g===gen) f(); }, ms); }
+  function startCam(){ if(stream||!navigator.mediaDevices) return; navigator.mediaDevices.getUserMedia({video:true,audio:false}).then(s=>{stream=s;vid.srcObject=s;place();}).catch(()=>{camOn=false;place();}); }
+  function hl(el){ document.querySelectorAll(".tour-hl").forEach(x=>x.classList.remove("tour-hl")); if(el){ el.classList.add("tour-hl"); } }
+  function go(el, block){ if(el) el.scrollIntoView({behavior:"smooth",block:block||"start"}); }
+  function setCard(kind){
+    const L2 = LANG==="ru";
+    $("#tourKick").textContent = L2 ? "NomoVita · Здоровье матери" : "NomoVita · Maternal health";
+    $("#tourTitle").textContent = L2 ? "Маршрут беременности" : "Pregnancy pathway";
+    $("#tourWho").textContent = kind==="end" ? (L2 ? "Лейла Ишбаева, основательница NomoVita" : "Leila Ishbayeva, founder of NomoVita") : (L2 ? "Лейла Ишбаева, основательница NomoVita · Астана, Казахстан" : "Leila Ishbayeva, founder of NomoVita · Astana, Kazakhstan");
+    $("#tourLinks").innerHTML = kind==="end" ? "nomovita.ai<br>github.com/AstralNoMade/nomovita-pregnancy-pathway" : (L2 ? "демонстрация на синтетических данных" : "demonstration on synthetic data");
+  }
+  function lever(id,on){ const c=document.getElementById("sw_"+id); if(c && c.checked!==on){ c.checked=on; c.dispatchEvent(new Event("change")); } }
+  const STEPS = [
+    ()=>{ setCard("start"); card.classList.add("on"); window.scrollTo(0,0); hl(null); },
+    ()=>{ window.scrollTo({top:0,behavior:"smooth"}); hl(document.querySelector(".synth-banner")); },
+    ()=>{ go($("#chain")); hl($("#chainBox")); },
+    ()=>{ SEL="scr"; renderAll(false); later(()=>{ go($("#evidence")); hl($("#evidence")); },60); },
+    ()=>{ go($("#normFind"),"center"); hl(document.querySelectorAll("#normFind .card")[2]); },
+    ()=>{ go($("#normFind"),"center"); hl(document.querySelectorAll("#normFind .card")[2]); },
+    ()=>{ SELSW=44; renderSwitches(); go($("#switches")); later(()=>hl($("#swCard")),60); },
+    ()=>{ LEVERS.forEach(l=>lever(l.id,false)); lever("p6",true); go($("#sim")); later(()=>{ const r=document.querySelectorAll("#result .rline"); hl(r[6]); },120); },
+    ()=>{ setCard("end"); card.classList.add("on"); hl(null); }
+  ];
+  let i = 0;
+  function place(){
+    const onCard = card.classList.contains("on");
+    document.body.classList.toggle("tour-big", onCard);
+    if(camOn && stream){ cam.classList.add("on");
+      if(onCard){ const r=slot.getBoundingClientRect(); cam.style.left=r.left+"px"; cam.style.top=r.top+"px"; }
+      else { cam.style.left=""; cam.style.top=""; }
+    } else cam.classList.remove("on");
+  }
+  function show(){
+    gen++;
+    card.classList.remove("on");
+    STEPS[i]();
+    const txt = SUB==="off" ? "" : (CAP[SUB]||CAP.en)[i];
+    cap.textContent = txt; cap.classList.toggle("on", !!txt);
+    setTimeout(place, 30);
+  }
+  document.addEventListener("keydown", e=>{
+    if(e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if(e.key==="ArrowRight"||e.key===" "||e.key==="PageDown"){ e.preventDefault(); if(i<STEPS.length-1){ i++; show(); } }
+    else if(e.key==="ArrowLeft"||e.key==="PageUp"){ e.preventDefault(); if(i>0){ i--; show(); } }
+    else if(e.key==="c"||e.key==="с"){ SUB = SUB==="off" ? (q.get("sub")&&q.get("sub")!=="off"?q.get("sub"):"en") : "off"; show(); }
+    else if(e.key==="v"||e.key==="м"){ camOn=!camOn; if(camOn) startCam(); place(); }
+  });
+  window.addEventListener("resize", place);
+  if(camOn) startCam();
+  show();
+})();
 </script>
 </body>
 </html>
