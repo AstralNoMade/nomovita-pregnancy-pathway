@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Маршрут беременности · NomoVita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Onest:wght@400;500;600&family=Unbounded:wght@300;400;500&display=swap">
+<style>
+:root{
+  --paper:#fbf9fc;--white:#ffffff;--mist:#f3edf5;
+  --l50:#faf3f8;--l100:#f4e4ef;--l200:#ebcce0;--l300:#dda9cb;--l500:#b96fa4;--l600:#9a5590;--l700:#84447a;
+  --warn:#b8513f;--ink:#121014;--ink2:#26212a;--muted:#6e6574;--rule:#e8dfe9;--rule2:#d7c7d6;
+  --fd:"Unbounded","Onest",system-ui,sans-serif;--fb:"Onest",system-ui,"Segoe UI",Arial,sans-serif;--fm:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --rc:4px;--rg:28px;color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink2);font-family:var(--fb);font-size:16px;line-height:1.5}
+a{color:var(--l700)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+@media(min-width:900px){.wrap{padding:0 32px}}
+.label{font-family:var(--fm);font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--l700)}
+h1,h2,h3{font-family:var(--fd);font-weight:300;color:var(--ink);margin:0}
+h1{font-size:clamp(28px,4.2vw,54px);line-height:1.1;letter-spacing:-.01em}
+h2{font-size:clamp(24px,2.8vw,38px);line-height:1.15}
+h3{font-size:19px;line-height:1.25;font-weight:400}
+p{margin:0}
+/* header */
+.top{position:sticky;top:0;z-index:20;background:rgba(251,249,252,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand svg{width:30px;height:30px;color:var(--l500)}
+.brand b{font-family:var(--fd);font-weight:400;letter-spacing:.22em;font-size:14px}
+.brand span{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.top .sp{flex:1}
+.lang{display:flex;border:1px solid var(--rule2);border-radius:999px;overflow:hidden}
+.lang button{font:500 12px var(--fm);letter-spacing:.1em;border:0;background:transparent;padding:7px 12px;cursor:pointer;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--l700);color:#fff}
+.nav{display:none;gap:18px}
+.nav a{font-size:14px;text-decoration:none;color:var(--ink2)}
+.nav a:hover{color:var(--l700)}
+@media(min-width:1100px){.nav{display:flex}}
+/* hero */
+.hero{padding:48px 0 28px;background:radial-gradient(1200px 400px at 85% -10%,var(--l100),transparent 70%)}
+.hero .lead{font-size:clamp(17px,1.5vw,20px);max-width:880px;margin-top:18px;color:var(--ink2)}
+.synth-banner{display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding:14px 16px;border-radius:var(--rc);background:repeating-linear-gradient(135deg,var(--l50) 0 10px,var(--white) 10px 20px);border:1px solid var(--l200);max-width:880px}
+.synth-banner b{font-weight:600}
+.counters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:26px;max-width:880px}
+@media(min-width:700px){.counters{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.counter{background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);padding:14px}
+.counter .n{font-family:var(--fd);font-weight:300;font-size:32px;color:var(--l700);line-height:1}
+.counter .t{font-size:13px;color:var(--muted);margin-top:6px}
+/* legend */
+.legend{display:grid;gap:10px;margin-top:26px;grid-template-columns:1fr}
+@media(min-width:800px){.legend{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.legend div{display:flex;gap:10px;align-items:flex-start;font-size:14px;background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);padding:10px 12px}
+.chip{display:inline-flex;align-items:center;gap:4px;font:500 11px/1 var(--fm);letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border-radius:3px;white-space:nowrap;flex:none}
+.chip.f{background:var(--l100);color:var(--l700);border:1px solid var(--l300)}
+.chip.a{background:var(--white);color:var(--muted);border:1px dashed var(--muted)}
+.chip.p{background:var(--l700);color:#fff;border:1px solid var(--l700)}
+.chip.s{background:repeating-linear-gradient(135deg,var(--l100) 0 4px,var(--white) 4px 8px);color:var(--ink2);border:1px solid var(--l300)}
+.chip.k{background:var(--mist);color:var(--ink2);border:1px solid var(--rule2)}
+section.block{padding:44px 0;border-top:1px solid var(--rule)}
+.sub{color:var(--muted);margin-top:10px;max-width:880px}
+/* chain */
+.chain{margin-top:22px;border:1px solid var(--rule);border-radius:var(--rc);background:var(--white);overflow:hidden}
+.chain-head{display:none}
+.row{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--rule);background:transparent;padding:0;cursor:pointer;font:inherit;color:inherit}
+.row:first-of-type{border-top:0}
+.row:hover{background:var(--l50)}
+.row[aria-expanded="true"]{background:var(--l50);box-shadow:inset 4px 0 0 var(--l500)}
+.cells{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+.cell{padding:12px 16px;border-top:1px dashed var(--rule)}
+.cell:first-child{border-top:0}
+.cell .k{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;display:block}
+.cell .v{font-size:14.5px}
+.cell .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+.cell .chip{margin-top:6px}
+.stage-n{font-family:var(--fm);font-size:12px;color:var(--l600);letter-spacing:.08em}
+.stage-t{font-family:var(--fd);font-weight:400;font-size:16px;color:var(--ink);margin-top:2px;line-height:1.25}
+.gapv{font-family:var(--fd);font-weight:300;font-size:30px;color:var(--l700);line-height:1}
+.gapv.ok{color:var(--muted)}
+.bar{height:6px;background:var(--mist);border-radius:3px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--l500)}
+@media(min-width:1000px){
+  .chain-head{display:grid;grid-template-columns:1.25fr 1fr 1fr 1fr 1.05fr 1.3fr;background:var(--l100);border-bottom:1px solid var(--l200)}
+  .chain-head div{padding:12px 14px;font:500 11px/1.3 var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--l700);position:relative}
+  .chain-head div:not(:last-child)::after{content:"\2192";position:absolute;right:-6px;top:50%;transform:translateY(-50%);color:var(--l500);font-size:15px}
+  .cells{grid-template-columns:1.25fr 1fr 1fr 1fr 1.05fr 1.3fr}
+  .cell{border-top:0;border-left:1px solid var(--rule);padding:14px}
+  .cell:first-child{border-left:0}
+  .cell .k{display:none}
+}
+.hint{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin-top:12px}
+/* evidence */
+.evi{background:var(--white);border:1px solid var(--l200);border-radius:var(--rc);margin-top:18px;padding:20px}
+.evi-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr);margin-top:16px}
+@media(min-width:1000px){.evi-grid{grid-template-columns:1fr 1fr 1fr}}
+.evi .box{border:1px solid var(--rule);border-radius:var(--rc);padding:14px;background:var(--paper)}
+.evi .box h4{margin:0 0 8px;font:500 12px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--l700);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.evi .box p+p{margin-top:8px}
+.quote{border-left:3px solid var(--l300);padding-left:10px;font-size:14.5px}
+.fig{font-family:var(--fd);font-weight:300;font-size:26px;color:var(--l700)}
+.tblw{overflow-x:auto;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top}
+th{background:var(--l100);color:var(--l700);font:500 11px var(--fm);letter-spacing:.08em;text-transform:uppercase}
+td.mono{font-family:var(--fm);font-size:12.5px;white-space:nowrap}
+.yes{color:var(--l700);font-weight:600}
+.no{color:var(--warn);font-weight:600}
+.na{color:var(--muted)}
+.btn{font:500 12px var(--fm);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--l700);color:var(--l700);background:var(--white);padding:9px 14px;border-radius:999px;cursor:pointer}
+.btn:hover{background:var(--l50)}
+/* simulator */
+.sim{display:grid;gap:22px;grid-template-columns:minmax(0,1fr);margin-top:22px}
+@media(min-width:1000px){.sim{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+.lever{background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);padding:14px;margin-bottom:10px}
+.lever.on{border-color:var(--l300);background:var(--l50)}
+.lever-top{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.lever-top label{flex:1;cursor:pointer}
+.lever-top .t{font-size:14.5px;color:var(--ink)}
+.lever-top .m{font-size:12.5px;color:var(--muted);margin-top:4px}
+.sw{appearance:none;-webkit-appearance:none;width:40px;height:22px;border-radius:11px;background:var(--rule2);position:relative;cursor:pointer;flex:none;margin-top:2px;transition:background .16s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .16s}
+.sw:checked{background:var(--l700)}
+.sw:checked::after{left:21px}
+.sw:focus-visible,.row:focus-visible,.btn:focus-visible,.lang button:focus-visible{outline:2px solid var(--l500);outline-offset:2px}
+.eff{display:flex;gap:10px;align-items:center;margin-top:10px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.eff input[type=range]{flex:1;min-width:140px;accent-color:var(--l700)}
+.eff output{font-family:var(--fm);color:var(--ink2);min-width:40px}
+.result{background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);padding:16px}
+.rline{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) 96px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule);font-size:13.5px}
+.rline:last-child{border-bottom:0}
+.rbars{display:grid;gap:4px}
+.rbar{height:9px;background:var(--mist);border-radius:4px;overflow:hidden;position:relative}
+.rbar i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.rbar.now i{background:var(--rule2)}
+.rbar.aft i{background:var(--l500)}
+.rnum{font-family:var(--fm);font-size:12px;text-align:right}
+.rnum .d{display:block;color:var(--l700)}
+.rkey{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap}
+.rkey span::before{content:"";display:inline-block;width:12px;height:8px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.rkey .kn::before{background:var(--rule2)}
+.rkey .ka::before{background:var(--l500)}
+.note{margin-top:12px;font-size:13.5px;padding:10px 12px;border-radius:var(--rc);background:var(--l50);border:1px solid var(--l200)}
+.note+.note{margin-top:8px}
+.total{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule2)}
+.total div{font-size:13px;color:var(--muted)}
+.total b{display:block;font-family:var(--fd);font-weight:300;font-size:26px;color:var(--ink)}
+.total b.a{color:var(--l700)}
+/* cases */
+.cases{display:grid;gap:14px;grid-template-columns:minmax(0,1fr);margin-top:20px}
+@media(min-width:1000px){.cases{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.case{background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);padding:16px}
+.case .id{font-family:var(--fm);font-size:12px;color:var(--l600);letter-spacing:.08em}
+.case h3{margin-top:4px;font-size:17px}
+.steps{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.steps li{display:grid;grid-template-columns:1fr auto auto;gap:8px;font-size:13px;align-items:center;border-bottom:1px dotted var(--rule);padding-bottom:5px}
+.dot{font-family:var(--fm);font-size:11px;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.dot.y{background:var(--l100);color:var(--l700)}
+.dot.n{background:#f7e4df;color:var(--warn)}
+.dot.x{background:var(--mist);color:var(--muted)}
+.case .story{font-size:13.5px;margin-top:12px;color:var(--ink2)}
+/* method */
+.cols{display:grid;gap:18px;grid-template-columns:minmax(0,1fr);margin-top:20px}
+@media(min-width:900px){.cols{grid-template-columns:1fr 1fr}}
+.card{background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);padding:18px}
+.card h3{margin-bottom:10px}
+.card ul{margin:0;padding-left:18px}
+.card li{margin:5px 0;font-size:14.5px}
+.abbr{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+.abbr dt{font-family:var(--fm);font-weight:500;color:var(--l700)}
+.abbr dd{margin:0}
+.swwrap{display:grid;gap:22px;grid-template-columns:minmax(0,1fr);margin-top:22px}
+@media(min-width:1000px){.swwrap{grid-template-columns:minmax(0,4fr) minmax(0,7fr)}}
+.swgrid{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:6px}
+.tile{cursor:pointer;aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font:500 11px var(--fm);border:1px solid var(--rule2);background:var(--mist);color:var(--muted);border-bottom-width:3px;padding:0}
+.tile.c{border-bottom-color:var(--l300)}.tile.o{border-bottom-color:var(--ink2)}.tile.p{border-bottom-color:var(--warn)}.tile.i{border-bottom-color:var(--muted)}
+.tile.open{background:var(--l700);color:#fff;cursor:pointer;border-color:var(--l700)}
+.tile[aria-pressed="true"]{outline:2px solid var(--l500);outline-offset:2px}.tile.open[aria-pressed="true"]{background:var(--l600)}
+.tile.open:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.swkey{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.swkey span::before{content:"";display:inline-block;width:12px;height:3px;margin-right:6px;vertical-align:middle}
+.swkey .kc::before{background:var(--l300)}.swkey .ko::before{background:var(--ink2)}.swkey .kp::before{background:var(--warn)}.swkey .ki::before{background:var(--muted)}
+.swcard{background:var(--white);border:1px solid var(--l200);border-radius:var(--rc);padding:18px}
+.swfields{display:grid;gap:10px 18px;grid-template-columns:minmax(0,1fr);margin-top:14px}
+@media(min-width:700px){.swfields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.swf .k{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+.swf .v{font-size:14.5px}
+.swstate{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:14.5px}
+.swstate b{font-weight:500;background:var(--mist);border:1px solid var(--rule2);border-radius:3px;padding:4px 8px}
+.swstate i{font-style:normal;color:var(--l500);font-size:18px}
+.swwhy{margin-top:14px;padding:12px;border-left:3px solid var(--l500);background:var(--l50);font-size:14.5px}
+.princ{margin:12px 0 0;padding-left:18px}.princ li{margin:5px 0;font-size:14px}
+.chip.n{background:var(--ink);color:#fff;border:1px solid var(--ink)}
+footer{border-top:1px solid var(--rule);padding:26px 0 40px;margin-top:20px;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="nv-mark" viewBox="0 0 128 128"><g fill="currentColor"><path transform="translate(-3 -5)" d="M 30 34 C 36 34 38 38 41 44 C 45 51 50 52 57 52 C 67 52 72 57 72 65 C 72 72 66 77 66 86 C 66 95 73 98 73 106 C 73 113 68 118 61 118 C 54 118 49 113 49 106 C 49 99 54 95 54 87 C 54 81 51 76 47 70 C 42 62 38 58 30 58 C 22 58 17 53 17 46 C 17 39 22 34 30 34 Z"/><circle cx="86" cy="39" r="14"/><circle cx="25" cy="91" r="10"/></g></symbol></svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><svg aria-hidden="true"><use href="#nv-mark"/></svg><div><b>NOMOVITA</b><span data-t="tagline"></span></div></a>
+    <div class="sp"></div>
+    <nav class="nav" aria-label="sections">
+      <a href="#chain" data-t="navChain"></a><a href="#switches" data-t="navSw"></a><a href="#sim" data-t="navSim"></a><a href="#cases" data-t="navCases"></a><a href="#method" data-t="navMethod"></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="label" data-t="kicker"></div>
+      <h1 style="margin-top:12px" data-t="title"></h1>
+      <p class="lead" data-t="lead"></p>
+      <div class="synth-banner"><span class="chip s" data-t="chipS"></span><p data-t="synthBanner"></p></div>
+      <div class="counters" id="counters"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+
+  <section class="block" id="chain">
+    <div class="wrap">
+      <div class="label" data-t="chainKicker"></div>
+      <h2 style="margin-top:10px" data-t="chainTitle"></h2>
+      <p class="sub" data-t="chainSub"></p>
+      <div class="chain" id="chainBox"></div>
+      <p class="hint" data-t="chainHint"></p>
+      <div class="evi" id="evidence" aria-live="polite"></div>
+      <div class="label" style="margin-top:34px" data-t="nfKicker"></div>
+      <h3 style="margin-top:8px;font-size:24px;font-family:var(--fd);font-weight:300" data-t="nfTitle"></h3>
+      <p class="sub" data-t="nfSub"></p>
+      <div class="cols" id="normFind" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <section class="block" id="switches">
+    <div class="wrap">
+      <div class="label" data-t="swKicker"></div>
+      <h2 style="margin-top:10px" data-t="swTitle"></h2>
+      <p class="sub" data-t="swSub"></p>
+      <div class="swwrap">
+        <div>
+          <div class="counters" id="swCounters" style="margin-top:0;grid-template-columns:repeat(2,minmax(0,1fr))"></div>
+          <div class="label" style="margin:18px 0 8px" data-t="swGridLabel"></div>
+          <div class="swgrid" id="swGrid" role="group"></div>
+          <div class="swkey" id="swKey"></div>
+          <ul class="princ" id="swPrinc"></ul>
+        </div>
+        <div class="swcard" id="swCard" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="sim">
+    <div class="wrap">
+      <div class="label" data-t="simKicker"></div>
+      <h2 style="margin-top:10px" data-t="simTitle"></h2>
+      <p class="sub" data-t="simSub"></p>
+      <div class="sim">
+        <div id="levers"></div>
+        <div>
+          <div class="result" id="result"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="cases">
+    <div class="wrap">
+      <div class="label" data-t="casesKicker"></div>
+      <h2 style="margin-top:10px" data-t="casesTitle"></h2>
+      <p class="sub" data-t="casesSub"></p>
+      <div class="cases" id="caseBox"></div>
+    </div>
+  </section>
+
+  <section class="block" id="method">
+    <div class="wrap">
+      <div class="label" data-t="methodKicker"></div>
+      <h2 style="margin-top:10px" data-t="methodTitle"></h2>
+      <div class="cols" id="methodBox"></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span data-t="footer"></span><span>© 2026 NOMOVITA</span></div></footer>
+
+<script>
+"use strict";
+/* ============ Content ============ */
+/* Status: f = fact (legal act, clause), a = assumption, p = proposal. Synthetic data are marked separately. */
+const SRC = {
+ st:{ru:"Стандарт ДСМ-92",en:"Standard KR DSM-92"},
+ pay:{ru:"Правила оплаты ДСМ-291/2020",en:"Payment Rules DSM-291/2020"},
+ rew:{ru:"Правила поощрения ДСМ-278/2020, приложение 4",en:"Reward Rules DSM-278/2020, annex 4"},
+ gob:{ru:"Перечень ГОБМП, п. 3",en:"GVFMC list, cl. 3"}
+};
+function S(k, tail){ return {ru:SRC[k].ru+(tail?", "+tail.ru:""), en:SRC[k].en+(tail?", "+tail.en:"")}; }
+const SRC_PKG = {ru:"Перечень ГОБМП, п. 3; перечень ОСМС, п. 2",en:"GVFMC list, cl. 3; CSHI list, cl. 2"};
+const NOTE_PKG = {ru:"Разделение между ГОБМП и ОСМС для этой услуги в актах прямо не указано.",en:"The split between GVFMC and CSHI for this service is not stated directly in the acts."};
+const PKG_PHC = {st:"f",ru:"В перечне ГОБМП в составе ПМСП названо наблюдение за беременными; ПМСП входит и в перечень ОСМС (кроме случаев в рамках ГОБМП)",en:"The GVFMC list names observation of pregnant women within PHC; PHC is also in the CSHI list (except cases within the GVFMC)",src:SRC_PKG,note:NOTE_PKG};
+const PAY_PHC = {st:"f",ru:"Комплексный подушевой норматив ПМСП; сумма не зависит от объёма оказанных услуг, кроме случаев п. 47-1; перечень услуг ПМСП задан Стандартом ПМСП (приказ № 49)",en:"PHC comprehensive per capita rate; the amount does not depend on the volume of services, except the cases in cl. 47-1; the list of PHC services is set by the PHC Standard (Order No. 49)",src:S("pay",{ru:"пп. 42, 47, 47-1",en:"cl. 42, 47, 47-1"})};
+
+const STAGES = [
+ {id:"reg", lever:"p1",
+  title:{ru:"Ранняя постановка на учёт",en:"Early registration"},
+  norm:{st:"f",ru:"При первом обращении по поводу беременности, если женщина хочет её сохранить, врач акушер-гинеколог после информированного согласия ставит её на учёт до 10 недель, в день обращения и выявления беременности.",en:"At the first visit about a pregnancy, if the woman wishes to keep it, the obstetrician-gynaecologist, after informed consent, registers her before 10 weeks, on the day she seeks care and pregnancy is identified.",src:S("st",{ru:"п. 16",en:"cl. 16"})},
+  pkg:PKG_PHC, pay:PAY_PHC,
+  resp:{st:"f",ru:"Врач акушер-гинеколог",en:"Obstetrician-gynaecologist",src:S("st",{ru:"п. 16",en:"cl. 16"})},
+  now:[{st:"f",ru:"В стимулирующем компоненте подушевого норматива есть подиндикатор «Ранняя постановка на учёт по беременности в сроке до 10 недель», плановое значение 50%; в числитель входят женщины со сроком до 10 недель 6 дней; наибольший балл (7) даётся при 50% и более. Подиндикаторы считаются в составе индикатора «Материнская смертность»: расчёт проводится при отсутствии случаев материнской смерти среди прикреплённого населения за период, сумма умножается на коэффициент по числу беременных на участке.",en:"The performance component of the per capita rate includes the sub-indicator 'Early registration of pregnancy before 10 weeks', target 50%; the numerator counts women at up to 10 weeks 6 days; the top score (7 points) is given at 50% or more. The sub-indicators are part of the 'Maternal mortality' indicator: it is calculated only when there were no maternal deaths among the enrolled population in the period, and the sum is multiplied by a coefficient based on the number of pregnant women in the catchment area.",src:{ru:"Правила поощрения ДСМ-278/2020, пп. 18, 19, приложение 4",en:"Reward Rules DSM-278/2020, cl. 18, 19, annex 4"}}],
+  incent:{ru:"Стимул есть, но упирается в планку: выше 50% балл не растёт. За беременных, которые встают на учёт позже, дополнительного балла по этому подиндикатору нет, а активный поиск на раннем сроке остаётся затратой организации.",en:"The incentive exists but stops at a ceiling: above 50% the score no longer grows. The sub-indicator gives no further point for the women who register later, while early outreach remains a cost to the organisation."},
+  change:{ru:"Продолжить шкалу подиндикатора выше 50% и публиковать его с числителем и знаменателем; проверять, что срок беременности записан при постановке",en:"Extend the sub-indicator scale above 50% and publish it with numerator and denominator; check that gestational age is recorded at registration"},
+  gapLabel:{ru:"встали на учёт позже 10 недель",en:"registered after 10 weeks"},
+  fields:{ru:"срок беременности на дату постановки на учёт, недель",en:"gestational age at registration, weeks"},
+  rule:{ru:"Норма выполнена, если на дату постановки срок не больше 10 полных недель (до 10 недель 6 дней, как в числителе подиндикатора).",en:"The norm is met if gestational age at registration is at most 10 completed weeks (up to 10 weeks 6 days, as in the sub-indicator numerator)."},
+  denom:{ru:"все записи набора",en:"all records in the set"},
+  limit:{ru:"Срок беременности должен быть в записи о постановке. Если поля нет, инструмент пишет «не установлено», а не «поздно». Позднее обращение женщины и позднее выявление не различаются; разрыв не приписывается организации.",en:"Gestational age must be recorded at registration. If the field is missing, the tool reports 'not established', not 'late'. Late first contact by the woman and late identification are not separated; the gap is not attributed to the organisation."}
+ },
+ {id:"ther", lever:"p2",
+  title:{ru:"Осмотр терапевтом или ВОП",en:"Internist or GP examination"},
+  norm:{st:"f",ru:"При постановке беременную направляют к терапевту, врачу общей практики и патронажной медсестре; участковый терапевт или ВОП проводит осмотр беременной. Число и сроки осмотров Стандарт не задаёт.",en:"At registration the woman is referred to an internist, a GP and a home-visit nurse; the district internist or GP examines her. The Standard sets no number or timing of examinations.",src:S("st",{ru:"п. 16, п. 17",en:"cl. 16, 17"})},
+  pkg:PKG_PHC, pay:PAY_PHC,
+  resp:{st:"f",ru:"Участковый терапевт или ВОП",en:"District internist or GP",src:S("st",{ru:"п. 17",en:"cl. 17"})},
+  now:[{st:"f",ru:"В стимулирующем компоненте есть подиндикатор «Удельный вес беременных женщин с впервые диагностированными экстрагенитальными заболеваниями во время беременности», плановое значение не более 20%; знаменатель: беременные с экстрагенитальными заболеваниями, взятые на учёт за квартал.",en:"The performance component includes the sub-indicator 'Share of pregnant women with extragenital diseases first diagnosed during pregnancy', target no more than 20%; denominator: pregnant women with extragenital diseases registered in the quarter.",src:S("rew")}],
+  incent:{ru:"Подушевой норматив (вне случаев п. 47-1) не зависит от объёма, поэтому незакрытое направление на оплате не отражается. Подиндикатор поощряет низкую долю заболеваний, впервые выявленных во время беременности. Подиндикатор не различает организации по полноте осмотров.",en:"The per capita rate (outside cl. 47-1) does not depend on volume, so an unclosed referral does not affect payment. The sub-indicator rewards a low share of diseases first diagnosed during pregnancy. The sub-indicator does not distinguish organisations by completeness of examinations."},
+  change:{ru:"Направление закрывается только записью об осмотре; подиндикатор по экстрагенитальным заболеваниям публикуется вместе с долей осмотренных",en:"A referral closes only with an examination record; the extragenital disease sub-indicator is published together with the share of women examined"},
+  gapLabel:{ru:"нет записи об осмотре после направления",en:"no examination record after referral"},
+  fields:{ru:"направление к терапевту или ВОП; запись об осмотре",en:"referral to internist or GP; examination record"},
+  rule:{ru:"Норма выполнена, если после направления есть запись об осмотре терапевтом или ВОП.",en:"The norm is met if an examination record follows the referral."},
+  denom:{ru:"все записи набора",en:"all records in the set"},
+  limit:{ru:"Осмотр мог пройти в другой организации. Без обмена записями это выглядит как разрыв.",en:"The examination may have taken place elsewhere. Without record exchange it looks like a gap."}
+ },
+ {id:"pat", lever:"p3",
+  title:{ru:"Дородовой патронаж",en:"Antenatal home visit"},
+  norm:{st:"f",ru:"В течение трёх рабочих дней со дня постановки на учёт проводится дородовой патронаж; всего два дородовых патронажа: до 12 и на 32 неделе.",en:"An antenatal home visit takes place within three working days of registration; two antenatal home visits in total, before 12 and at 32 weeks.",src:S("st",{ru:"п. 2, п. 18",en:"cl. 2, 18"})},
+  pkg:PKG_PHC, pay:PAY_PHC,
+  resp:{st:"f",ru:"Участковая медицинская сестра или акушерка",en:"District nurse or midwife",src:S("st",{ru:"п. 18",en:"cl. 18"})},
+  now:[{st:"f",ru:"Среди подиндикаторов индикатора «Материнская смертность» (1.1-1.4) показателя дородового патронажа нет.",en:"The sub-indicators of the 'Maternal mortality' indicator (1.1-1.4) include no antenatal home visit measure.",src:S("rew")}],
+  incent:{ru:"Патронаж оплачивается в составе подушевого норматива и не приносит ни платежа, ни балла. Выезд на дом требует времени персонала, а оплата не зависит от того, состоялся ли он в срок.",en:"The home visit is paid within the per capita rate and brings neither payment nor score. It takes staff time, while payment does not depend on whether it happened on time."},
+  change:{ru:"Показатель «дородовой патронаж в течение 3 рабочих дней» в стимулирующем компоненте подушевого норматива",en:"Indicator 'antenatal home visit within 3 working days' in the performance component of the per capita rate"},
+  gapLabel:{ru:"нет патронажа в течение 3 рабочих дней",en:"no home visit within 3 working days"},
+  fields:{ru:"дата постановки на учёт; дата патронажа",en:"registration date; home visit date"},
+  rule:{ru:"Норма выполнена, если патронаж записан не позднее 3 рабочих дней после постановки.",en:"The norm is met if a home visit is recorded within 3 working days of registration."},
+  denom:{ru:"все записи набора",en:"all records in the set"},
+  limit:{ru:"Отказ от визита и отсутствие дома отличаются от неоказания; в рабочем режиме это отдельные отметки.",en:"A declined visit or nobody at home differs from no service; in live use these are separate marks."}
+ },
+ {id:"scr", lever:"p4",
+  title:{ru:"Первый ультразвуковой скрининг",en:"First ultrasound screening"},
+  norm:{st:"f",ru:"Трёхкратный ультразвуковой скрининг; первый с 11 недель по 13 недель 6 дней.",en:"Three ultrasound screenings; the first from 11 weeks to 13 weeks 6 days.",src:S("st",{ru:"п. 24",en:"cl. 24"})},
+  pkg:{st:"a",ru:"ГОБМП или ОСМС: в нормах прямо не установлено",en:"GVFMC or CSHI: not stated directly in the norms"},
+  pay:{st:"f",ru:"Услуга с тарифом «УЗИ акушерское в 1 триместре беременности»; оплата КДП равна тарифу, умноженному на число оказанных услуг",en:"A tariffed service, 'Obstetric ultrasound in the 1st trimester'; CDA is paid as the tariff times the number of services delivered",src:{ru:"Тарифы ДСМ-170/2020, приложение 7; Правила оплаты ДСМ-291/2020, п. 63",en:"Tariffs DSM-170/2020, annex 7; Payment Rules DSM-291/2020, cl. 63"},note:{ru:"Относится ли скрининг, проведённый в ПМСП, к КДП, прямо не указано.",en:"Whether screening done in PHC counts as CDA is not stated directly."}},
+  resp:{st:"f",ru:"Направляет акушер-гинеколог или врач общей медицины; проводит врач ультразвуковой диагностики",en:"Referred by the obstetrician-gynaecologist or a general medicine doctor; performed by an ultrasound physician",src:S("st",{ru:"п. 24",en:"cl. 24"})},
+  now:[{st:"f",ru:"В стимулирующем компоненте ПМСП есть подиндикатор «Охват услугами пренатального скрининга первого триместра беременности», плановое значение 90%. Подиндикатор входит в индикатор «Младенческая смертность, предотвратимая на уровне ПМСП» и считается, если за период не было случаев младенческой смертности, которые эксперты Фонда признали предотвратимыми на уровне ПМСП (п. 20).",en:"The PHC performance component includes the sub-indicator 'Coverage of first-trimester prenatal screening', target 90%. The sub-indicator is part of the 'Infant mortality preventable at PHC level' indicator and counts only when the period had no infant deaths confirmed by the Fund's experts as preventable at PHC level (cl. 20).",src:S("rew")}],
+  incent:{ru:"Если исследование оплачивается по тарифу, исполнитель получает его за сам факт исследования, независимо от попадания в окно. Беременная, вставшая на учёт после 13 недель 6 дней, в окно уже не попадёт: эта часть разрыва наследуется от этапа 1, и мера этапа 4 её не закрывает.",en:"If the scan is paid by tariff, the provider receives it for the scan itself, whether or not it falls inside the window. A woman registered after 13 weeks 6 days can no longer be screened inside it: this part of the gap is inherited from stage 1, and the stage 4 measure cannot close it."},
+  change:{ru:"Надбавка к тарифу исполнителю за исследование в окне; исследование вне окна оплачивается как сейчас, без штрафа",en:"A tariff bonus to the provider for a scan inside the window; scans outside it are paid as now, with no penalty"},
+  gapLabel:{ru:"первый скрининг не в окне",en:"first screening outside the window"},
+  fields:{ru:"срок беременности на дату постановки; дата и срок первого скрининга",en:"gestational age at registration; date and gestational age of first screening"},
+  rule:{ru:"Норма выполнена, если первый скрининг проведён с 11 недель по 13 недель 6 дней.",en:"The norm is met if the first screening falls between 11 weeks and 13 weeks 6 days."},
+  denom:{ru:"все записи набора",en:"all records in the set"},
+  limit:{ru:"Окно задаёт норма. Если срок при скрининге не записан, попадание в окно проверить нельзя. Беременные, направленные к генетику без ультразвукового скрининга (Стандарт, п. 16, пп. 4), в знаменатель не входят.",en:"The window is set by the norm. If gestational age at screening is not recorded, timing cannot be checked. Women referred to a geneticist without ultrasound screening (Standard, cl. 16, sub-cl. 4) are outside the denominator."}
+ },
+ {id:"comm", lever:"p5",
+  title:{ru:"Комиссионный осмотр в 36 недель",en:"Panel review at 36 weeks"},
+  norm:{st:"f",ru:"В 36 недель беременным с факторами риска проводят комиссионный осмотр и определяют метод и уровень родоразрешения; повторный осмотр в 38-40 недель.",en:"At 36 weeks women with risk factors receive a panel review that sets the mode and level of delivery; a repeat review at 38-40 weeks.",src:S("st",{ru:"п. 38, п. 39",en:"cl. 38, 39"})},
+  pkg:{st:"a",ru:"Не установлено",en:"Not established"},
+  pay:{st:"a",ru:"Не установлено",en:"Not established"},
+  resp:{st:"f",ru:"Акушеры-гинекологи с заведующим отделением или региональными акушерами-гинекологами",en:"Obstetrician-gynaecologists with the head of department or regional obstetrician-gynaecologists",src:S("st",{ru:"п. 38",en:"cl. 38"})},
+  now:[{st:"f",ru:"Среди подиндикаторов 1.1-1.4 показателя комиссионного осмотра нет.",en:"Sub-indicators 1.1-1.4 include no panel review measure.",src:S("rew")}],
+  incent:{ru:"Отдельной оплаты осмотра в просмотренных актах не найдено. Сбор комиссии требует времени нескольких врачей и остаётся затратой организации.",en:"No separate payment for the review was found in the acts reviewed. Convening the panel takes several doctors' time and remains a cost to the organisation."},
+  change:{ru:"Показатель «комиссионный осмотр в 36 недель при факторах риска» в стимулирующем компоненте; знаменатель: беременные с факторами риска",en:"Indicator 'panel review at 36 weeks for women with risk factors' in the performance component; denominator: women with risk factors"},
+  gapLabel:{ru:"нет комиссионного осмотра при факторах риска",en:"no panel review among women with risk factors"},
+  fields:{ru:"отметка о факторах риска; дата комиссионного осмотра",en:"risk factor flag; panel review date"},
+  rule:{ru:"Норма выполнена, если у беременной с факторами риска записан комиссионный осмотр в 36 недель.",en:"The norm is met if a woman with risk factors has a panel review recorded at 36 weeks."},
+  denom:{ru:"только записи с факторами риска",en:"only records with risk factors"},
+  limit:{ru:"Знаменатель зависит от того, как отмечены факторы риска. Без отметки беременная выпадает из расчёта.",en:"The denominator depends on how risk factors are flagged. Without the flag a woman drops out of the calculation."}
+ },
+ {id:"disc", lever:"p6",
+  title:{ru:"Передача выписки из роддома в ПМСП",en:"Discharge summary from maternity to PHC"},
+  norm:{st:"f",ru:"В день выписки в организацию ПМСП передаются выписка из истории родов и сведения о родильнице для активного посещения: в электронном формате на адрес организации ПМСП либо телефонным или письменным извещением.",en:"On the day of discharge the birth record summary and information on the mother are sent to the PHC organisation for an active home visit: electronically to its address, or by telephone or written notice.",src:S("st",{ru:"п. 127",en:"cl. 127"})},
+  pkg:{st:"f",ru:"ГОБМП и ОСМС: стационарная помощь в родах",en:"GVFMC and CSHI: inpatient care in childbirth",src:S("st",{ru:"п. 81",en:"cl. 81"})},
+  pay:{st:"f",ru:"Специализированная помощь в стационаре оплачивается по тарифам, в том числе за пролеченный случай по КЗГ; при осложнённом течении беременности и родов по КЗГ с оплатой дополнительных расходов",en:"Inpatient specialised care is paid by tariffs, including per treated case by CCG; for complicated pregnancy and birth, CCG plus additional costs",src:S("pay",{ru:"п. 70, п. 104",en:"cl. 70, 104"}),note:{ru:"Способ оплаты неосложнённых родов отдельным пунктом не назван.",en:"The payment method for uncomplicated births is not named in a separate clause."}},
+  resp:{st:"f",ru:"Родовспомогательная организация, которая выписывает родильницу",en:"The maternity facility that discharges the mother",src:S("st",{ru:"п. 127",en:"cl. 127"})},
+  now:[{st:"a",ru:"Связь оплаты пролеченного случая с передачей сведений в ПМСП в просмотренных актах оплаты не найдена; требует сверки с правилами контроля качества.",en:"No link between the payment per treated case and sending information to PHC was found in the payment acts reviewed; to be checked against quality control rules."}],
+  incent:{ru:"Стационар получает оплату за пролеченный случай. По просмотренным актам передача сведений в ПМСП на сумму оплаты не влияет, поэтому её скорость деньгами не поддерживается.",en:"The hospital is paid per treated case. In the acts reviewed, sending information to PHC does not change the payment, so its speed is not backed by money."},
+  change:{ru:"Рассмотреть поддержку передачи сведений в ПМСП в день выписки: надбавку или иной способ, который определит уполномоченный орган",en:"Consider supporting same-day transfer of information to PHC: a bonus or another method chosen by the competent authority"},
+  gapLabel:{ru:"выписка не передана в ПМСП в день выписки",en:"summary not sent to PHC on the day of discharge"},
+  fields:{ru:"дата выписки из стационара; дата получения выписки организацией ПМСП",en:"discharge date; date the PHC organisation received the summary"},
+  rule:{ru:"Норма выполнена, если ПМСП получила выписку в день выписки из стационара.",en:"The norm is met if PHC received the summary on the day of discharge."},
+  denom:{ru:"все записи набора",en:"all records in the set"},
+  limit:{ru:"Нужна дата получения, а не только дата отправки: разрыв возникает на стыке двух организаций.",en:"The date of receipt is needed, not only the date sent: the gap sits between two organisations."}
+ },
+ {id:"pp", lever:null, via:"p6",
+  title:{ru:"Послеродовой патронаж",en:"Postnatal home visit"},
+  norm:{st:"f",ru:"После неосложнённых родов патронаж проводит акушерка или медицинская сестра в первые трое суток после выписки; при осложнённом течении врач акушер-гинеколог или ВОП.",en:"After an uncomplicated birth a midwife or nurse makes a home visit within the first three days after discharge; after a complicated course, an obstetrician-gynaecologist or GP.",src:S("st",{ru:"п. 43",en:"cl. 43"})},
+  pkg:{st:"f",ru:"В перечне ГОБМП в составе ПМСП названо наблюдение за родильницами в послеродовом периоде; ПМСП входит и в перечень ОСМС (кроме случаев в рамках ГОБМП)",en:"The GVFMC list names observation of mothers in the postnatal period within PHC; PHC is also in the CSHI list (except cases within the GVFMC)",src:SRC_PKG,note:NOTE_PKG},
+  pay:PAY_PHC,
+  resp:{st:"f",ru:"Акушерка или медицинская сестра ПМСП",en:"PHC midwife or nurse",src:S("st",{ru:"п. 43",en:"cl. 43"}),noteSt:"f",note:{ru:"Стандарт ПМСП (приказ № 49, п. 100) называет активное посещение при выписке за врачом организации ПМСП.",en:"The PHC Standard (Order No. 49, cl. 100) assigns the active visit at discharge to a PHC doctor."}},
+  now:[{st:"f",ru:"В стимулирующем компоненте ПМСП есть подиндикатор «Охват патронажным посещением новорожденных в первые 3 суток после выписки из организации родовспоможения», плановое значение 90%. Знаменатель: число выписанных из стационара родильниц. Отдельного подиндикатора патронажа родильницы нет. Подиндикатор входит в индикатор «Младенческая смертность, предотвратимая на уровне ПМСП» и считается, если за период не было случаев младенческой смертности, которые эксперты Фонда признали предотвратимыми на уровне ПМСП (п. 20).",en:"The PHC performance component includes the sub-indicator 'Coverage of newborn home visits within 3 days after discharge from the maternity facility', target 90%. Denominator: the number of mothers discharged from hospital. There is no separate sub-indicator for the mother's visit. The sub-indicator is part of the 'Infant mortality preventable at PHC level' indicator and counts only when the period had no infant deaths confirmed by the Fund's experts as preventable at PHC level (cl. 20).",src:S("rew")}],
+  incent:{ru:"Подиндикатор 2.1 оценивает патронаж новорождённых в первые трое суток; он стоит у ПМСП, а условие его выполнения, передача сведений в день выписки, у стационара, которому этот показатель ничего не приносит. При позднем получении сведений ПМСП может потерять часть балла по причине вне своего контроля. Эта связь в синтетическом наборе задана параметрами, а не найдена в данных.",en:"Sub-indicator 2.1 scores newborn visits within three days; it sits with PHC, while the condition for meeting it, sending information on the day of discharge, sits with the hospital, which gains nothing from this indicator. If information arrives late, PHC may lose part of the score for a reason outside its control. In the synthetic set this link is set by parameters, not found in data."},
+  change:{ru:"Отдельной меры нет: этап меняется через этап 6",en:"No separate measure: this stage changes through stage 6"},
+  gapLabel:{ru:"патронаж не в первые трое суток после выписки",en:"visit not within three days after discharge"},
+  fields:{ru:"дата получения выписки; дата послеродового патронажа",en:"date summary received; postnatal visit date"},
+  rule:{ru:"Норма выполнена, если патронаж проведён в первые трое суток после выписки.",en:"The norm is met if the visit takes place within three days after discharge."},
+  denom:{ru:"все записи набора",en:"all records in the set"},
+  limit:{ru:"Этап зависит от этапа 6: в наборе видно, какая часть опозданий приходится на записи без выписки в день выписки.",en:"This stage depends on stage 6: the set shows how many late visits occur in records without a same-day summary."}
+ }
+];
+
+const NORM_FINDINGS = [
+ {f:{ru:"Шкала баллов подиндикатора ранней постановки содержит пересекающиеся диапазоны: «30–49%» даёт 4 балла, «10–39%» даёт 1 балл.",en:"The score scale of the early registration sub-indicator has overlapping ranges: '30–49%' gives 4 points and '10–39%' gives 1 point."},
+  src:{ru:"Правила поощрения ДСМ-278/2020, п. 18",en:"Reward Rules DSM-278/2020, cl. 18"},
+  a:{ru:"При доле от 30 до 39% балл по тексту акта однозначно не определяется: одна и та же доля попадает в два диапазона.",en:"For a share between 30 and 39% the text of the act does not determine the score unambiguously: the same share falls into two ranges."}},
+ {f:{ru:"Наибольший балл подиндикатора ранней постановки (7) даётся при доле 50% и более.",en:"The top score of the early registration sub-indicator (7 points) is given at a share of 50% or more."},
+  src:{ru:"Правила поощрения ДСМ-278/2020, п. 18",en:"Reward Rules DSM-278/2020, cl. 18"},
+  a:{ru:"Выше 50% шкала баллов по этому подиндикатору не растёт: для работы с женщинами, встающими на учёт позже, дополнительного балла по нему нет.",en:"Above 50% the score of this sub-indicator does not grow: for work with women who register later it gives no additional point."}},
+ {f:{ru:"Подиндикатор 2.1 «Охват патронажным посещением новорожденных в первые 3 суток после выписки» оценивает ПМСП; сведения для активного посещения передаются при выписке из стационара.",en:"Sub-indicator 2.1 'Coverage of newborn home visits within 3 days after discharge' scores PHC; the information for the active visit is sent at discharge from hospital."},
+  src:{ru:"Правила поощрения, приложение 4; Стандарт ДСМ-92, п. 127",en:"Reward Rules, annex 4; Standard KR DSM-92, cl. 127"},
+  a:{ru:"Стимул и условие его выполнения находятся в разных организациях: поздняя передача сведений может снизить балл той организации, которая их ждёт.",en:"The incentive and the condition for meeting it sit in different organisations: a late handover may lower the score of the organisation that waits for it."}},
+ {f:{ru:"Подиндикатор 1.2 задаёт долю беременных с впервые диагностированными экстрагенитальными заболеваниями не более 20%; знаменатель: беременные с экстрагенитальными заболеваниями, взятые на учёт за квартал.",en:"Sub-indicator 1.2 sets the share of pregnant women with extragenital diseases first diagnosed during pregnancy at no more than 20%; denominator: pregnant women with extragenital diseases registered in the quarter."},
+  src:{ru:"Правила поощрения, приложение 4",en:"Reward Rules, annex 4"},
+  a:{ru:"Показатель не учитывает полноту осмотров: при меньшем числе осмотров впервые выявленных заболеваний может оказаться меньше, их доля снизится, и показатель улучшится без улучшения помощи.",en:"The indicator ignores how completely women are examined: with fewer examinations fewer new diseases may be found, their share falls, and the indicator improves without better care."}}
+];
+
+const LEVERS = [
+ {id:"p1",stage:"reg",kind:"econ",def:30,title:{ru:"Шкала ранней постановки растёт выше 50%",en:"Early registration scale extends above 50%"}},
+ {id:"p2",stage:"ther",kind:"org",def:30,title:{ru:"Направление закрывается записью об осмотре",en:"Referral closes only with an examination record"}},
+ {id:"p3",stage:"pat",kind:"econ",def:30,title:{ru:"Показатель дородового патронажа в стимулирующем компоненте",en:"Antenatal home visit indicator in the performance component"}},
+ {id:"p4",stage:"scr",kind:"econ",def:30,title:{ru:"Надбавка за скрининг в окне, без штрафа за поздний",en:"Bonus for in-window screening, no penalty for late"}},
+ {id:"p5",stage:"comm",kind:"econ",def:30,title:{ru:"Показатель комиссионного осмотра при факторах риска",en:"Panel review indicator for women with risk factors"}},
+ {id:"p6",stage:"disc",kind:"econ",def:30,title:{ru:"Поддержка передачи сведений в день выписки",en:"Support for same-day transfer of information"}}
+];
+
+/* Synthetic set parameters: every value is an assumption set for the demonstration. */
+const P = {N:1000, seed:20261111, early:0.62, mid:0.22, ther:0.78, pat:0.70, scrE:0.88, scrM:0.55, risk:0.25, comm:0.75, disc:0.55, ppOn:0.90, ppOff:0.45, gapShow:0.10};
+
+const T = {
+ ru:{
+  swKicker:"2 · Как маршрут переключается",swTitle:"Реестр переключателей маршрута: ноу-хау NomoVita",
+  swSub:"Разрыв в цепочке виден по данным, но сам по себе ничего не меняет. В модели NomoVita каждое значимое событие беременности является переключателем: оно явно меняет состояние маршрута, назначает владельца, срочность, немедленное действие и условие закрытия и показывает, как событие отражается на расчёте. Реестр составлен основательницей NomoVita и является её ноу-хау. Здесь видны все 45 переключателей: название, класс, срочность и тип решения. Полностью открыты 7, по одному на каждый этап цепочки; логика остальных закрыта.",
+  swAll:"переключателей в реестре",swClin:"чисто клинических (ещё 4 клинико-организационных): решение за врачом",swC0:"допускают уровень немедленной реакции C0",swAuto:"полностью автоматических: меняют только организационное состояние",
+  swGridLabel:"Реестр: 45 переключателей, полностью открыты 7",swOpenHint:"открыт",swLocked:"закрыт: ноу-хау",
+  kC:"клинические",kO:"организационные",kP:"сигналы пациентки",kI:"информационные",
+  swBefore:"Состояние до",swAfter:"после",swUrg:"Срочность",swDec:"Тип решения",swOwner:"Владелец",swAct:"Немедленное действие",swClose:"Условие закрытия",swPay:"Влияние на расчёт",swWhy:"Как переключатель закрывает разрыв этапа",swNo:"Переключатель",
+  swUrgNote:"Уровни срочности проекта: C0 немедленная реакция, далее C1-C3. Точные сроки утверждает медицинский блок; проектный код не заменяет клинический протокол.",
+  swPrinc:["Автоматически меняется только организационное состояние; диагноз, риск, тяжесть и госпитализацию подтверждает врач.","Событие не удаляется: ошибочный сигнал получает статус «отменён» с причиной и автором.","Финансовое правило не отменяет клинически необходимое действие; неполные данные не переводят пациентку в «норму» и не создают санкцию.","Переключатель меняет ожидаемый ресурс маршрута и не создаёт поштучного платежа."],
+  swEvi:"Переключатель NomoVita для этого этапа",swGo:"Открыть в реестре",
+  chipN:"Ноу-хау",swClosedTxt:"Состояния до и после, владелец, немедленное действие, условие закрытия и влияние на расчёт закрыты: это ноу-хау NomoVita, раскрывается по соглашению.",swCls:"Класс",clsC:"клиническое",clsO:"организационное",clsP:"сигнал пациентки",clsI:"информационное",swFull:"полностью открыт",swPart:"логика закрыта",
+  nfKicker:"1а · Замечания к нормам",nfTitle:"Что инструмент находит в самих нормах",nfSub:"Разрыв бывает не только в данных, но и в устройстве нормы и стимула. Факт отмечен пунктом акта, оценка отмечена как оценка.",nfAssess:"Оценка",
+  tagline:"Решения с правом на жизнь",navSw:"Переключатели",navChain:"Цепочка",navSim:"Стимулы",navCases:"Случаи",navMethod:"Данные и метод",
+  kicker:"Модуль NomoVita · Здоровье матери · демонстрация на синтетических данных",
+  title:"Маршрут беременности: как увидеть разрыв в данных и как стимулы могут изменить маршрут",
+  lead:"Инструмент раскладывает каждый этап наблюдения беременной на шесть звеньев: что положено по норме, каким пакетом это покрыто, как за это платят, кто отвечает, где маршрут рвётся и что можно изменить. Каждый разрыв считается по записям о помощи и показывается вместе с данными, на которых он найден. Под цепочкой работает реестр переключателей маршрута, ноу-хау основательницы NomoVita.",
+  chipS:"Синтетика",
+  synthBanner:"<b>Все записи на странице синтетические.</b> 1 000 условных беременностей без персональных данных. Значения разрывов заданы для демонстрации работы инструмента и не описывают реальную систему здравоохранения. Нормы и способы оплаты приведены по действующим актам Республики Казахстан с указанием пункта; где акты их не устанавливают, это отмечено.",
+  cStages:"этапов маршрута",cRecords:"синтетических беременностей",cGaps:"этапов выше порога 10% в синтетическом наборе",cLevers:"предложений к рассмотрению",
+  lgF:"<b>Факт.</b> Подтверждено нормативным актом, указан пункт.",lgA:"<b>Допущение.</b> Принято для демонстрации или не установлено по нормам; его можно изменить.",lgP:"<b>Предложение.</b> Что предлагаем рассмотреть; решение за уполномоченным органом.",lgS:"<b>Синтетика.</b> Значения синтетического набора, не реальные данные.",
+  chipF:"Факт",chipA:"Допущение",chipP:"Предложение",
+  chainKicker:"1 · Цепочка маршрута",chainTitle:"Этап помощи → пакет → оплата → ответственный → разрыв → изменение",
+  chainSub:"Каждая строка читается слева направо: от нормы к тому, кто за неё платит и кто отвечает, затем к разрыву в данных и к изменению, которое могло бы его закрыть.",
+  hStage:"Этап помощи",hPkg:"Пакет покрытия",hPay:"Способ оплаты",hResp:"Ответственный",hGap:"Разрыв",hChange:"Предлагаемое изменение",
+  stageN:"Этап",chainHint:"Нажмите на этап, чтобы увидеть данные, на которых найден разрыв.",
+  belowThr:"ниже порога показа",
+  eviTitle:"На каких данных найден разрыв",eviNorm:"Норма",eviData:"Данные и расчёт",eviNow:"Какой стимул действует сейчас",eviPay:"Как оплата связана с разрывом (оценка на допущении)",eviChange:"Что предлагаем",eviLimit:"Ограничение",
+  eviFields:"Поля записи",eviRule:"Правило",eviDenom:"Знаменатель",eviCount:"Не выполнено",of:"из",
+  eviSample:"Первые 8 записей набора",colId:"Запись",colWeek:"Срок при постановке, нед.",colMet:"Норма выполнена",colReason:"Почему",
+  colRisk:"Факторы риска",colDisc:"Выписка в день выписки",
+  yes:"да",no:"нет",na:"не применяется",
+  rWindow:"окно прошло до постановки",rLate:"не проведён в окне",rOk:"в окне",
+  download:"Скачать синтетический набор (CSV)",
+  eviGoSim:"Включить эту меру в расчёте стимулов",
+  simKicker:"3 · Оценка на допущениях",simTitle:"Как изменение стимулов меняет маршрут",
+  simSub:"Это не прогноз. Включите меру и задайте, какую долю разрыва своего этапа она закрывает. Расчёт идёт по тем же 1 000 синтетическим записям. Пока все меры выключены, «после» совпадает с «сейчас». Стартовое значение 30% задано для демонстрации и не является оценкой.",
+  kEcon:"Экономический стимул",kOrg:"Данные и организация",
+  effLabel:"Допущение: мера закрывает",effOf:"разрыва этапа",
+  resTitle:"Доля записей, где норма этапа выполнена",keyNow:"сейчас",keyAft:"после",
+  pp:"п.п.",
+  totNow:"Прошли все применимые этапы, сейчас",totAft:"После включённых мер",totNote:"Этапы в наборе независимы, кроме двух связей, заданных параметрами; итог зависит от этих допущений.",
+  noteRoute1:"Этап 4 меняется и через этап 1: больше беременных встают на учёт до начала окна скрининга. Часть разрыва этапа 4 наследуется от этапа 1. Связь задана параметрами набора.",
+  noteRoute6:"Этап 7 меняется через этап 6: сведения приходят в день выписки, и патронаж успевает в первые трое суток. Связь задана параметрами набора.",
+  noteOff:"Все меры выключены: разница равна нулю на каждом этапе.",
+  noteSafe:"Ни одна мера не штрафует за клинически необходимую помощь вне срока: поздняя постановка и поздний скрининг оплачиваются как сейчас.",
+  casesKicker:"4 · Синтетические случаи",casesTitle:"Три записи из набора: маршрут сейчас и после мер",
+  casesSub:"Записи выбраны из синтетического набора автоматически. Номер записи условный, за ним нет человека. Включайте меры выше, и маршрут каждой записи пересчитается.",
+  case1:"Поздняя постановка на учёт",case2:"Выписка не дошла вовремя",case3:"Факторы риска",
+  caseNoneLabel:"В наборе нет подходящей записи.",
+  st_reg:"Постановка до 10 нед.",st_ther:"Осмотр терапевтом",st_pat:"Патронаж за 3 дня",st_scr:"Скрининг в окне",st_comm:"Комиссия в 36 нед.",st_disc:"Выписка в день выписки",st_pp:"Патронаж за 3 суток",
+  now:"сейчас",after:"после",
+  story1:"Встала на учёт на {w}-й неделе. Сейчас первый скрининг в окно не попадает: окно закрывается в 13 недель 6 дней. {a}",
+  story1a:"После мер постановка переходит на {w}-ю неделю, и первый скрининг попадает в окно.",
+  story1b:"При текущих настройках эта запись не меняется: мера этапа 1 выключена или закрывает только часть разрыва.",
+  story2:"После родов выписка пришла в ПМСП позже дня выписки, и патронаж не успел в первые трое суток. {a}",
+  story2a:"После мер выписка приходит в день выписки, патронаж проходит вовремя.",
+  story2b:"При текущих допущениях эта запись не меняется: мера этапа 6 выключена или не закрывает этот случай.",
+  story3:"Есть факторы риска, комиссионный осмотр в 36 недель не записан. {a}",
+  story3a:"После мер осмотр проводится.",
+  story3b:"При текущих допущениях эта запись не меняется.",
+  exScr:"Из {m} невыполненных: {w} записей, где окно закрылось до постановки на учёт (разрыв наследуется от этапа 1), и {l} записей, где скрининг не проведён в окне.",
+  exPp:"Из {m} опозданий {d} приходятся на записи, где выписка не пришла в день выписки. Эта связь задана параметрами набора (раздел «Данные и метод»), а не найдена в данных.",
+  methodKicker:"5 · Данные и метод",methodTitle:"Как инструмент находит разрыв и чего он не утверждает",
+  mData:"Данные",mDataL:[
+   "Синтетический набор: 1 000 записей, у каждой условный номер, срок при постановке и отметки этапов. Набор строится заново при каждом открытии страницы с одним и тем же начальным числом, поэтому результат воспроизводим.",
+   "В рабочем режиме инструмент предполагается строить на тех же полях из записей организации: дата постановки и срок беременности, направления и их результаты, патронажи, исследования с датой и сроком, выписка с датой получения.",
+   "По замыслу персональные данные не нужны: достаточно обезличенного номера записи; порядок обезличивания определяет владелец данных.","Для работы на реальных данных нужны обезличенная выгрузка с этими полями и разрешение её владельца. Сроков и результатов демонстрация не обещает."],
+  mRule:"Правило разрыва",mRuleL:[
+   "Разрыв этапа равен доле записей, где норма этапа не выполнена. Знаменатель указан у каждого этапа.",
+   "Этап отмечается как разрыв, если доля больше 10%. Порог принят как допущение.",
+   "Отсутствие записи не доказывает, что помощи не было: это может быть пробел учёта. Поэтому разрыв всегда показан с полями, числителем и знаменателем."],
+  mParams:"Параметры синтетического набора (все допущения)",
+  mNot:"Что не моделируется",mNotL:["выкидыши, переводы, смена организации, отказ от помощи","женщины с направлением к генетику без ультразвукового скрининга","связи между этапами, кроме двух заданных параметрами (этап 1 → этап 4, этап 6 → этап 7); остальные этапы в наборе независимы","стоимость мер и бюджет","различия между группами населения: в наборе их нет, и выводов о группах инструмент не делает; разрез по группам возможен, если такие поля есть в записях, в демонстрацию он не включён","клинические решения: их принимает врач"],
+  mSrc:"Источники",mSrcNote:"Тексты актов по состоянию на ноябрь 2026 года.",
+  mAbbr:"Сокращения",
+  parN:"Записей",parEarly:"Постановка до 10 недель",parMid:"Постановка в 11-13 недель",parThe:"Осмотр терапевтом после направления",parPat:"Патронаж за 3 рабочих дня",parScrE:"Скрининг в окне при постановке до 10 недель",parScrM:"Скрининг в окне при постановке в 11-13 недель",parRisk:"Доля с факторами риска",parComm:"Комиссионный осмотр при факторах риска",parDisc:"Выписка в ПМСП в день выписки",parPpOn:"Патронаж за 3 суток, если выписка пришла в день выписки",parPpOff:"Патронаж за 3 суток, если выписка опоздала",
+  footer:"NomoVita · Маршрут беременности · демонстрационная версия 1.0 от 11.11.2026 · синтетические данные · не рекомендация и не оценка эффекта"
+ },
+ en:{
+  swKicker:"2 · How the pathway switches",swTitle:"The pathway switch registry: NomoVita know-how",
+  swSub:"A gap in the chain is visible in the data, but on its own it changes nothing. In the NomoVita model every significant pregnancy event is a switch: it explicitly changes the pathway state, assigns an owner, urgency, an immediate action and a closing condition, and shows how the event affects payment. The registry was built by the founder of NomoVita and is her know-how. All 45 switches are visible here with title, class, urgency and decision type. Seven are fully open, one for each stage of the chain; the logic of the others is closed.",
+  swAll:"switches in the registry",swClin:"purely clinical (4 more are clinical and organisational): the decision rests with the doctor",swC0:"allow the immediate response level C0",swAuto:"fully automatic: change only the organisational state",
+  swGridLabel:"Registry: 45 switches, 7 fully open",swOpenHint:"open",swLocked:"closed: know-how",
+  kC:"clinical",kO:"organisational",kP:"signals from the woman",kI:"information",
+  swBefore:"State before",swAfter:"after",swUrg:"Urgency",swDec:"Decision type",swOwner:"Owner",swAct:"Immediate action",swClose:"Closing condition",swPay:"Effect on payment",swWhy:"How the switch closes the stage gap",swNo:"Switch",
+  swUrgNote:"Project urgency levels: C0 immediate response, then C1-C3. Exact time limits are approved by the medical team; the project code does not replace a clinical protocol.",
+  swPrinc:["Only the organisational state changes automatically; diagnosis, risk, severity and hospitalisation are confirmed by a doctor.","No event is deleted: a wrong signal is marked 'cancelled' with the reason and the author.","A payment rule never overrides clinically necessary action; incomplete data never move a woman to 'normal' and never trigger a sanction.","A switch changes the expected resources of the pathway and does not create a per-item payment."],
+  swEvi:"NomoVita switch for this stage",swGo:"Open in the registry",
+  chipN:"Know-how",swClosedTxt:"States before and after, owner, immediate action, closing condition and effect on payment are closed: this is NomoVita know-how, disclosed under agreement.",swCls:"Class",clsC:"clinical",clsO:"organisational",clsP:"signal from the woman",clsI:"information",swFull:"fully open",swPart:"logic closed",
+  nfKicker:"1a · Findings on the norms",nfTitle:"What the tool finds in the norms themselves",nfSub:"A gap can sit not only in the data but in how a norm or an incentive is designed. Facts carry the clause of the act; assessments are marked as assessments.",nfAssess:"Assessment",
+  tagline:"Decisions with a right to life",navSw:"Switches",navChain:"Chain",navSim:"Incentives",navCases:"Cases",navMethod:"Data and method",
+  kicker:"NomoVita module · Maternal health · demonstration on synthetic data",
+  title:"Pregnancy pathway: how to see a gap in the data and how incentives could change the pathway",
+  lead:"The tool breaks each stage of antenatal care into six links: what the norm requires, which package covers it, how it is paid, who is responsible, where the pathway breaks, and what could change. Each gap is computed from care records and shown together with the data behind it. Underneath the chain runs the pathway switch registry, the know-how of NomoVita's founder.",
+  chipS:"Synthetic",
+  synthBanner:"<b>All records on this page are synthetic.</b> 1,000 simulated pregnancies with no personal data. Gap values are set to demonstrate how the tool works and do not describe the real health system. Norms and payment methods follow legal acts in force in the Republic of Kazakhstan, with the clause cited; where the acts do not set them, this is marked.",
+  cStages:"pathway stages",cRecords:"synthetic pregnancies",cGaps:"stages above the 10% threshold in the synthetic set",cLevers:"proposals for consideration",
+  lgF:"<b>Fact.</b> Confirmed by a legal act, clause cited.",lgA:"<b>Assumption.</b> Set for the demo or not established in the norms; can be changed.",lgP:"<b>Proposal.</b> For consideration; the decision rests with the competent authority.",lgS:"<b>Synthetic.</b> Values of the synthetic set, not real data.",
+  chipF:"Fact",chipA:"Assumption",chipP:"Proposal",
+  chainKicker:"1 · Pathway chain",chainTitle:"Stage of care → package → payment → responsible → gap → change",
+  chainSub:"Each row reads from left to right: from the norm to who pays and who is responsible, then to the gap in the data and to the change that could close it.",
+  hStage:"Stage of care",hPkg:"Benefit package",hPay:"Payment method",hResp:"Responsible",hGap:"Gap",hChange:"Proposed change",
+  stageN:"Stage",chainHint:"Select a stage to see the data behind the gap.",
+  belowThr:"below display threshold",
+  eviTitle:"The data behind the gap",eviNorm:"Norm",eviData:"Data and calculation",eviNow:"Incentive in place now",eviPay:"How payment relates to the gap (assessment on assumption)",eviChange:"What we propose",eviLimit:"Limitation",
+  eviFields:"Record fields",eviRule:"Rule",eviDenom:"Denominator",eviCount:"Not met",of:"of",
+  eviSample:"First 8 records of the set",colId:"Record",colWeek:"Weeks at registration",colMet:"Norm met",colReason:"Why",
+  colRisk:"Risk factors",colDisc:"Same-day summary",
+  yes:"yes",no:"no",na:"not applicable",
+  rWindow:"window passed before registration",rLate:"not done in window",rOk:"in window",
+  download:"Download the synthetic set (CSV)",
+  eviGoSim:"Switch this measure on in the incentive model",
+  simKicker:"3 · Estimate on assumptions",simTitle:"How changing incentives changes the pathway",
+  simSub:"This is not a forecast. Switch a measure on and set what share of its stage's gap it closes. The model runs on the same 1,000 synthetic records. While all measures are off, 'after' equals 'now'. The starting value of 30% is set for the demo and is not an estimate.",
+  kEcon:"Economic incentive",kOrg:"Data and organisation",
+  effLabel:"Assumption: the measure closes",effOf:"of the stage gap",
+  resTitle:"Share of records where the stage norm is met",keyNow:"now",keyAft:"after",
+  pp:"pp",
+  totNow:"Completed all applicable stages, now",totAft:"With the measures switched on",totNote:"Stages in the set are independent except for the two links set by parameters; the total depends on these assumptions.",
+  noteRoute1:"Stage 4 also changes through stage 1: more women register before the screening window opens. Part of the stage 4 gap is inherited from stage 1. The link is set by the parameters of the set.",
+  noteRoute6:"Stage 7 changes through stage 6: information arrives on the day of discharge, so the visit happens within three days. The link is set by the parameters of the set.",
+  noteOff:"All measures are off: the difference is zero at every stage.",
+  noteSafe:"No measure penalises clinically necessary care outside the time window: late registration and late screening are paid as now.",
+  casesKicker:"4 · Synthetic cases",casesTitle:"Three records from the set: the pathway now and after the measures",
+  casesSub:"Records are picked from the synthetic set automatically. The record number is arbitrary; there is no person behind it. Switch measures on above and each pathway is recalculated.",
+  case1:"Late registration",case2:"Summary arrived late",case3:"Risk factors",
+  caseNoneLabel:"No matching record in the set.",
+  st_reg:"Registered by 10 wks",st_ther:"Internist exam",st_pat:"Home visit in 3 days",st_scr:"Screening in window",st_comm:"Panel at 36 wks",st_disc:"Same-day summary",st_pp:"Visit within 3 days",
+  now:"now",after:"after",
+  story1:"Registered at week {w}. Now the first screening cannot fall inside the window, which closes at 13 weeks 6 days. {a}",
+  story1a:"After the measures, registration moves to week {w} and the first screening falls inside the window.",
+  story1b:"Under the current settings this record does not change: the stage 1 measure is off or closes only part of the gap.",
+  story2:"After the birth, the summary reached PHC after the day of discharge and the visit missed the three-day window. {a}",
+  story2a:"After the measures the summary arrives on the day of discharge and the visit is on time.",
+  story2b:"Under the current assumptions this record does not change: the stage 6 measure is off or does not reach this case.",
+  story3:"Risk factors present, no panel review recorded at 36 weeks. {a}",
+  story3a:"After the measures the review takes place.",
+  story3b:"Under the current assumptions this record does not change.",
+  exScr:"Of {m} not met: {w} records where the window closed before registration (gap inherited from stage 1), and {l} records where screening was not done in the window.",
+  exPp:"Of {m} late visits, {d} are in records where the summary did not arrive on the day of discharge. This link is set by the parameters of the set (see 'Data and method'), not found in data.",
+  methodKicker:"5 · Data and method",methodTitle:"How the tool finds a gap and what it does not claim",
+  mData:"Data",mDataL:[
+   "Synthetic set: 1,000 records, each with an arbitrary number, gestational age at registration and stage marks. The set is rebuilt each time the page opens from the same seed, so results are reproducible.",
+   "In live use the tool is intended to read the same fields from an organisation's records: registration date and gestational age, referrals and their results, home visits, tests with date and gestational age, discharge summary with date received.",
+   "By design no personal data is needed: an anonymised record number is enough; the owner of the data sets the anonymisation procedure.","Work on real data needs an anonymised extract with these fields and its owner's permission. The demo promises no timelines or results."],
+  mRule:"Gap rule",mRuleL:[
+   "A stage gap is the share of records where the stage norm is not met. Each stage states its denominator.",
+   "A stage is flagged as a gap if the share exceeds 10%. The threshold is an assumption.",
+   "A missing record does not prove that care was not given: it may be a recording gap. That is why every gap is shown with fields, numerator and denominator."],
+  mParams:"Synthetic set parameters (all assumptions)",
+  mNot:"Not modelled",mNotL:["miscarriage, transfers, change of provider, refusal of care","women referred to a geneticist without ultrasound screening","links between stages other than the two set by parameters (stage 1 → stage 4, stage 6 → stage 7); the other stages in the set are independent","cost of measures and budget","differences between population groups: the set has none, and the tool draws no conclusions about groups; a breakdown by group is possible if records hold such fields, and is not included in the demo","clinical decisions: these are made by the doctor"],
+  mSrc:"Sources",mSrcNote:"Texts of the acts as of November 2026.",
+  mAbbr:"Abbreviations",
+  parN:"Records",parEarly:"Registered by 10 weeks",parMid:"Registered at 11-13 weeks",parThe:"Internist exam after referral",parPat:"Home visit within 3 working days",parScrE:"Screening in window if registered by 10 weeks",parScrM:"Screening in window if registered at 11-13 weeks",parRisk:"Share with risk factors",parComm:"Panel review if risk factors",parDisc:"Summary to PHC on the day of discharge",parPpOn:"Visit within 3 days if same-day summary",parPpOff:"Visit within 3 days if summary late",
+  footer:"NomoVita · Pregnancy pathway · demo version 1.0, 11.11.2026 · synthetic data · not a recommendation or an effect estimate"
+ }
+};
+
+const SOURCES = [
+ {ru:"Стандарт организации оказания акушерско-гинекологической помощи в Республике Казахстан (приказ Министра здравоохранения РК от 26.08.2021 № ҚР ДСМ-92, с изменениями до приказа от 30.09.2026 № 126): пп. 2, 16-18, 24, 38, 39, 43, 81, 127.",en:"Standard for obstetric and gynaecological care in the Republic of Kazakhstan (Order of the Minister of Health No. KR DSM-92 of 26.08.2021, as amended up to Order No. 126 of 30.09.2026): cl. 2, 16-18, 24, 38, 39, 43, 81, 127."},
+ {ru:"Правила оплаты услуг субъектов здравоохранения в рамках ГОБМП и (или) в системе ОСМС (приказ Министра здравоохранения РК от 20.12.2020 № ҚР ДСМ-291/2020, с изменениями до приказа от 18.05.2026 № 52): пп. 42, 47, 47-1, 63, 70, 104.",en:"Rules for payment of health providers under the GVFMC and/or CSHI (Order of the Minister of Health No. KR DSM-291/2020 of 20.12.2020, as amended up to Order No. 52 of 18.05.2026): cl. 42, 47, 47-1, 63, 70, 104."},
+ {ru:"Правила поощрения работников субъектов здравоохранения (приказ Министра здравоохранения РК от 15.12.2020 № ҚР ДСМ-278/2020; приложение 4 в редакции приказа от 11.08.2026 № 91): п. 18, приложение 4, подиндикаторы 1.1-1.4, 2.1, 2.2.",en:"Rules for rewarding health workers (Order of the Minister of Health No. KR DSM-278/2020 of 15.12.2020; annex 4 as amended by Order No. 91 of 11.08.2026): cl. 18, annex 4, sub-indicators 1.1-1.4, 2.1, 2.2."},
+ {ru:"Тарифы на медицинские услуги в рамках ГОБМП и (или) ОСМС (приказ и.о. Министра здравоохранения РК от 30.10.2020 № ҚР ДСМ-170/2020, в редакции приказа от 31.12.2025 № 176): приложение 7.",en:"Tariffs for medical services under the GVFMC and/or CSHI (Order of the Acting Minister of Health No. KR DSM-170/2020 of 30.10.2020, as amended by Order No. 176 of 31.12.2025): annex 7."},
+ {ru:"Перечень гарантированного объёма бесплатной медицинской помощи (постановление Правительства РК от 16.10.2020 № 672, в редакции постановления от 15.12.2025 № 1086; часть положений вводится с 01.01.2027): п. 3.",en:"List of the guaranteed volume of free medical care (Government Decree No. 672 of 16.10.2020, as amended by Decree No. 1086 of 15.12.2025; some provisions in force from 01.01.2027): cl. 3."},
+ {ru:"Перечень медицинской помощи в системе ОСМС (постановление Правительства РК от 20.06.2019 № 421, в редакции постановления от 15.12.2025 № 1086): п. 2.",en:"List of care in the CSHI system (Government Decree No. 421 of 20.06.2019, as amended by Decree No. 1086 of 15.12.2025): cl. 2."},
+ {ru:"Стандарт организации оказания первичной медико-санитарной помощи в Республике Казахстан (приказ и.о. Министра здравоохранения РК от 30.03.2023 № 49): перечень услуг ПМСП; п. 100.",en:"Standard for primary health care in the Republic of Kazakhstan (Order of the Acting Minister of Health No. 49 of 30.03.2023): list of PHC services; cl. 100."}
+];
+const ABBR = {
+ ru:[["ВОП","врач общей практики"],["ГОБМП","гарантированный объём бесплатной медицинской помощи"],["КДП","консультативно-диагностическая помощь"],["КЗГ","клинико-затратная группа, оплата за пролеченный случай"],["ОСМС","обязательное социальное медицинское страхование"],["ПМСП","первичная медико-санитарная помощь"],["УЗИ","ультразвуковое исследование"],["п.п.","процентный пункт"]],
+ en:[["CCG","clinical cost group, payment per treated case"],["CDA","consultative and diagnostic outpatient care, a payment category in Kazakhstan"],["CSHI","compulsory social health insurance"],["cl.","clause"],["GP","general practitioner"],["GVFMC","guaranteed volume of free medical care"],["KR DSM","number prefix of orders of the Ministry of Health of Kazakhstan"],["PHC","primary health care"],["pp","percentage point"]]
+};
+
+
+/* Switch registry: author's know-how. All 45 switches show title, class, urgency and decision type; the full logic is open for 7. */
+const SW_ALL = [[1, "c", "C1", "Беременность подтверждена", "Pregnancy confirmed", "клиническое подтверждение", "clinical confirmation"], [2, "c", "C1", "Срок беременности установлен или изменён", "Gestational age set or revised", "клиническое решение", "clinical decision"], [3, "o", "C1", "Постановка на учёт", "Registration", "клиническо-организационное", "clinical and organisational"], [4, "c", "C1", "Первичная оценка риска завершена", "Initial risk assessment completed", "клиническое решение", "clinical decision"], [5, "c", "C2", "Ветвь без выявленной патологии подтверждена", "No-pathology branch confirmed", "клиническое решение", "clinical decision"], [6, "c", "C1/C0", "Новый фактор риска выявлен", "New risk factor identified", "сигнал с клиническим подтверждением", "signal with clinical confirmation"], [7, "c", "C1/C0", "Патология беременности подтверждена", "Pregnancy pathology confirmed", "клиническое решение", "clinical decision"], [8, "c", "C1/C0", "Повышенное артериальное давление", "Raised blood pressure", "сигнал с клиническим подтверждением", "signal with clinical confirmation"], [9, "c", "C0/C1", "Подозрение на преэклампсию", "Suspected pre-eclampsia", "клинический сигнал", "clinical signal"], [10, "c", "C0", "Критическое состояние матери", "Critical condition of the mother", "экстренное клиническое решение", "emergency clinical decision"], [11, "c", "C1/C0", "Протеинурия, нарушение функции почек", "Proteinuria, impaired kidney function", "сигнал с клиническим подтверждением", "signal with clinical confirmation"], [12, "c", "C1", "Нарушение углеводного обмена", "Impaired glucose metabolism", "сигнал с клиническим подтверждением", "signal with clinical confirmation"], [13, "c", "C1", "Гестационный или манифестный диабет подтверждён", "Gestational or overt diabetes confirmed", "клиническое решение", "clinical decision"], [14, "c", "C2/C1", "Анемия выявлена", "Anaemia detected", "сигнал с клиническим подтверждением", "signal with clinical confirmation"], [15, "c", "C1/C2", "Резус-отрицательная принадлежность, антитела", "Rh-negative status, antibodies", "клиническое решение", "clinical decision"], [16, "c", "C0/C1", "Положительный инфекционный маркер", "Positive infection marker", "сигнал с обязательным подтверждением", "signal with mandatory confirmation"], [17, "c", "C1/C2", "УЗИ выявило отклонение", "Ultrasound finding", "сигнал с клиническим подтверждением", "signal with clinical confirmation"], [18, "c", "C1/C0", "Подозрение на нарушение роста или состояния плода", "Suspected fetal growth or wellbeing problem", "клиническое решение", "clinical decision"], [19, "p", "C0/C1", "Снижение шевелений плода", "Reduced fetal movements", "пациентский сигнал с клинической проверкой", "signal from the woman with clinical check"], [20, "p", "C0", "Кровотечение, острая боль, подозрение на излитие вод", "Bleeding, acute pain, suspected rupture of membranes", "пациентский сигнал", "signal from the woman"], [21, "c", "C0/C1", "Начало родовой деятельности", "Onset of labour", "клиническое решение", "clinical decision"], [22, "o", "C2/C1", "План родоразрешения утверждён", "Delivery plan approved", "клиническое решение", "clinical decision"], [23, "o", "C2/C1", "Направление внешнему поставщику создано", "Referral to an external provider created", "организационное решение", "organisational decision"], [24, "i", "C1/C2", "Результат внешнего задания не возвращён в срок", "External result not returned on time", "автоматический организационный переключатель", "automatic organisational switch"], [25, "i", "C0", "Критический результат получен", "Critical result received", "автоматический сигнал и клиническое подтверждение", "automatic signal and clinical confirmation"], [26, "o", "C2/C1", "Плановый визит пропущен", "Scheduled visit missed", "автоматический организационный переключатель", "automatic organisational switch"], [27, "o", "C1/C2", "Связь с пациенткой потеряна", "Contact with the woman lost", "организационное решение", "organisational decision"], [28, "p", "C1/C2", "Отказ от этапа или вмешательства", "Refusal of a step or intervention", "решение пациентки после информирования", "the woman's decision after being informed"], [29, "p", "C0/C1/C2", "Социальный высокий риск выявлен", "High social risk identified", "сигнал с профессиональной оценкой", "signal with professional assessment"], [30, "o", "C1/C2", "Смена организации, передача наблюдения", "Change of provider, handover of care", "организационно-клиническое решение", "organisational and clinical decision"], [31, "c", "C1", "Роды состоялись", "Birth took place", "клиническое подтверждение", "clinical confirmation"], [32, "c", "C0/C1", "Осложнение родов или послеродового периода", "Complication of birth or the postnatal period", "клиническое решение", "clinical decision"], [33, "c", "C1/C2", "Послеродовый контакт выполнен", "Postnatal contact made", "клиническо-организационное", "clinical and organisational"], [34, "c", "C1", "Маршрут новорождённого создан", "Newborn pathway created", "клиническо-организационное", "clinical and organisational"], [35, "o", "C2", "Материнский эпизод завершён", "Maternal episode closed", "организационно-клиническое решение", "organisational and clinical decision"], [36, "c", "C0/C1", "Подозрение на внематочную беременность", "Suspected ectopic pregnancy", "клинический сигнал", "clinical signal"], [37, "c", "C0/C1", "Потеря беременности подтверждена", "Pregnancy loss confirmed", "клиническое решение", "clinical decision"], [38, "p", "C1/C2", "Решение о прерывании беременности", "Decision to terminate the pregnancy", "решение пациентки и клиническое решение", "the woman's decision and a clinical decision"], [39, "c", "C1", "Многоплодная беременность подтверждена", "Multiple pregnancy confirmed", "клиническое решение", "clinical decision"], [40, "c", "C0/C1", "Тяжёлая рвота, обезвоживание", "Severe vomiting, dehydration", "клинический сигнал", "clinical signal"], [41, "c", "C0", "Признаки преждевременных родов", "Signs of preterm labour", "клинический сигнал", "clinical signal"], [42, "c", "C0/C1", "Декомпенсация хронического заболевания", "Decompensation of a chronic disease", "клиническое решение", "clinical decision"], [43, "c", "C0/C1", "Госпитализация подтверждена", "Hospitalisation confirmed", "организационно-клиническое", "organisational and clinical"], [44, "c", "C1", "Выписка из стационара получена", "Hospital discharge summary received", "клиническо-организационное", "clinical and organisational"], [45, "c", "C1", "Перенашивание или предельный срок по протоколу", "Post-term pregnancy or protocol time limit", "клиническое решение", "clinical decision"]];
+const SW_COUNT = {all:45, clinical:27, c0:20, auto:2};
+const SWITCHES = [
+ {n:3, stage:"reg", title:{ru:"Постановка на учёт",en:"Registration"}, before:{ru:"обращение или подтверждение беременности",en:"first contact or confirmed pregnancy"}, after:{ru:"динамическое наблюдение начато",en:"follow-up started"}, urg:"C1", dec:{ru:"клиническо-организационное",en:"clinical and organisational"}, owner:{ru:"ПМСП, акушер-гинеколог",en:"PHC, obstetrician-gynaecologist"}, act:{ru:"назначить координатора и первоначальный комплекс",en:"assign a coordinator and the initial set of tests"}, close:{ru:"план создан и принят",en:"plan created and accepted"}, pay:{ru:"начать учёт эпизода и человеко-периода по доказанному основанию",en:"start counting the episode and person-period on documented grounds"}, why:{ru:"Дата постановки и срок беременности фиксируются одним событием. Подиндикатор ранней постановки считается по записи, а не по отчёту.",en:"Registration date and gestational age are captured in one event. The early registration sub-indicator is computed from records, not from reports."}},
+ {n:6, stage:"ther", title:{ru:"Новый фактор риска выявлен",en:"New risk factor identified"}, before:{ru:"любая активная ветвь",en:"any active branch"}, after:{ru:"риск на пересмотре",en:"risk under review"}, urg:{ru:"C1/C0 по тяжести",en:"C1/C0 by severity"}, dec:{ru:"сигнал с клиническим подтверждением",en:"signal with clinical confirmation"}, owner:{ru:"акушер-гинеколог",en:"obstetrician-gynaecologist"}, act:{ru:"немедленно назначить переоценку и временные меры безопасности",en:"order a reassessment and interim safety measures at once"}, close:{ru:"решение принято и задания созданы",en:"decision made and tasks created"}, pay:{ru:"пересчитать ожидаемый ресурс после решения",en:"recalculate expected resources after the decision"}, why:{ru:"Заболевание, найденное терапевтом, запускает переоценку риска и задания. Выявление становится действием маршрута, а не ухудшением показателя.",en:"A condition found by the internist triggers a risk reassessment and tasks. Detection becomes a step in the pathway, not a worse score."}},
+ {n:26, stage:"pat", title:{ru:"Плановый визит пропущен",en:"Scheduled visit missed"}, before:{ru:"активное задание",en:"active task"}, after:{ru:"пропуск или перенос",en:"missed or rescheduled"}, urg:{ru:"C2/C1 по риску",en:"C2/C1 by risk"}, dec:{ru:"автоматический организационный переключатель",en:"automatic organisational switch"}, owner:{ru:"координатор",en:"coordinator"}, act:{ru:"связаться, оценить срочность и назначить новый срок",en:"make contact, assess urgency and set a new date"}, close:{ru:"новый контакт или документированное исключение",en:"new contact or a documented exception"}, pay:{ru:"не считать оказанной услугой; подушевой норматив не меняется",en:"not counted as a service delivered; the per capita rate does not change"}, why:{ru:"Непроведённый патронаж не исчезает из данных: он становится заданием координатора со сроком. Пропуск отличается от отказа и от неоказания помощи.",en:"A missed home visit does not vanish from the data: it becomes a coordinator task with a deadline. A missed visit differs from a refusal and from care not given."}},
+ {n:2, stage:"scr", title:{ru:"Срок беременности установлен или изменён",en:"Gestational age set or revised"}, before:{ru:"срок неизвестен или предварительный",en:"gestational age unknown or provisional"}, after:{ru:"срок подтверждён или пересчитан",en:"gestational age confirmed or recalculated"}, urg:"C1", dec:{ru:"клиническое решение",en:"clinical decision"}, owner:{ru:"акушер-гинеколог",en:"obstetrician-gynaecologist"}, act:{ru:"пересчитать календарь маршрута без удаления истории",en:"recalculate the pathway calendar without deleting history"}, close:{ru:"источник и версия срока зафиксированы",en:"source and version of the dating recorded"}, pay:{ru:"пересчитать нормативные окна; оплату задним числом автоматически не менять",en:"recalculate the norm windows; do not change payment retroactively by default"}, why:{ru:"Окна скрининга считаются от срока беременности. Без этого события попадание в окно с 11 недель по 13 недель 6 дней проверить нельзя.",en:"Screening windows are counted from gestational age. Without this event, timing within 11 weeks to 13 weeks 6 days cannot be checked."}},
+ {n:22, stage:"comm", title:{ru:"План родоразрешения утверждён",en:"Delivery plan approved"}, before:{ru:"план не утверждён",en:"no approved plan"}, after:{ru:"план родов действует",en:"delivery plan in force"}, urg:"C2/C1", dec:{ru:"клиническое решение",en:"clinical decision"}, owner:{ru:"акушер-гинеколог, перинатальная команда",en:"obstetrician-gynaecologist, perinatal team"}, act:{ru:"создать задания подготовки и передачи",en:"create preparation and handover tasks"}, close:{ru:"план актуален либо заменён новой версией",en:"plan current or replaced by a new version"}, pay:{ru:"планируемый ресурс, не платёж",en:"planned resource, not a payment"}, why:{ru:"Комиссионный осмотр в 36 недель определяет метод и уровень родоразрешения. Переключатель фиксирует этот результат как действующий план с владельцем.",en:"The 36-week panel review sets the mode and level of delivery. The switch records this result as a plan in force, with an owner."}},
+ {n:44, stage:"disc", title:{ru:"Выписка из стационара получена",en:"Hospital discharge summary received"}, before:{ru:"стационарное лечение",en:"inpatient care"}, after:{ru:"амбулаторное продолжение или другой стационар",en:"outpatient follow-up or another hospital"}, urg:"C1", dec:{ru:"клиническо-организационное",en:"clinical and organisational"}, owner:{ru:"амбулаторный владелец эпизода, координатор",en:"outpatient episode owner, coordinator"}, act:{ru:"принять выписку, сверить лекарства и создать задания",en:"accept the summary, reconcile medicines and create tasks"}, close:{ru:"рекомендации приняты и задания созданы",en:"recommendations accepted and tasks created"}, pay:{ru:"закрыть стационарную передачу, возобновить ресурсный план",en:"close the inpatient handover, resume the resource plan"}, why:{ru:"Событие фиксирует дату получения выписки в ПМСП. По ней проверяется мера этапа 6 и видно, на чьей стороне задержка.",en:"The event records the date PHC received the summary. This is how the stage 6 measure is checked and how one sees on whose side the delay is."}},
+ {n:31, stage:"pp", title:{ru:"Роды состоялись",en:"Birth took place"}, before:{ru:"антенатальный или родовой эпизод",en:"antenatal or delivery episode"}, after:{ru:"послеродовый период",en:"postnatal period"}, urg:"C1", dec:{ru:"клиническое подтверждение",en:"clinical confirmation"}, owner:{ru:"стационар, ПМСП, акушер-гинеколог",en:"hospital, PHC, obstetrician-gynaecologist"}, act:{ru:"зафиксировать исход и послеродовый план",en:"record the outcome and the postnatal plan"}, close:{ru:"выписка принята и задания созданы",en:"summary accepted and tasks created"}, pay:{ru:"закрыть антенатальный модуль, создать послеродовый",en:"close the antenatal module, open the postnatal one"}, why:{ru:"Послеродовый этап открывается событием родов, а закрывается только принятой выпиской и созданными заданиями. Патронаж в первые трое суток становится заданием со сроком.",en:"The postnatal stage opens with the birth event and closes only with an accepted summary and created tasks. The visit within three days becomes a task with a deadline."}}
+];
+let SELSW = 3;
+/* ============ Engine ============ */
+let LANG = "ru";
+const ON = {}; const EFF = {};
+LEVERS.forEach(l => { ON[l.id] = false; EFF[l.id] = l.def; });
+let SEL = "reg";
+
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+const BASE = (function(){const r=mulberry32(P.seed);const out=[];for(let i=0;i<P.N;i++){const u=[];for(let k=0;k<10;k++)u.push(r());out.push({id:"S-"+String(i+1).padStart(4,"0"),u});}return out;})();
+
+function lift(p, e){ return p + e*(1-p); }
+function effOf(id){ return ON[id] ? EFF[id]/100 : 0; }
+
+function simulate(e){
+  const pE = lift(P.early, e.p1);
+  const pM = P.mid*(1-pE)/(1-P.early);
+  return BASE.map(b => {
+    const u=b.u; const r={id:b.id};
+    r.cat = u[0] < pE ? "E" : (u[0] < pE+pM ? "M" : "L");
+    r.week = r.cat==="E" ? 5+Math.floor(u[1]*6) : (r.cat==="M" ? 11+Math.floor(u[1]*3) : 14+Math.floor(u[1]*9));
+    r.reg = r.cat==="E";
+    r.ther = u[2] < lift(P.ther, e.p2);
+    r.pat = u[3] < lift(P.pat, e.p3);
+    const pS = r.cat==="E" ? lift(P.scrE, e.p4) : (r.cat==="M" ? lift(P.scrM, e.p4) : 0);
+    r.scr = u[4] < pS;
+    r.scrWhy = r.cat==="L" ? "window" : (r.scr ? "ok" : "late");
+    r.risk = u[5] < P.risk;
+    r.comm = r.risk ? (u[6] < lift(P.comm, e.p5)) : null;
+    r.disc = u[7] < lift(P.disc, e.p6);
+    r.pp = u[8] < (r.disc ? P.ppOn : P.ppOff);
+    r.all = r.reg && r.ther && r.pat && r.scr && (r.comm!==false) && r.disc && r.pp;
+    return r;
+  });
+}
+function zeroEff(){const z={};LEVERS.forEach(l=>z[l.id]=0);return z;}
+function curEff(){const z={};LEVERS.forEach(l=>z[l.id]=effOf(l.id));return z;}
+
+function stats(recs){
+  const s={};
+  STAGES.forEach(st=>{
+    let den=0, met=0;
+    recs.forEach(r=>{ const v=r[st.id]; if(v===null) return; den++; if(v) met++; });
+    s[st.id]={den, met, miss:den-met, share: den? met/den : 0, gap: den? (den-met)/den : 0};
+  });
+  s.all = recs.filter(r=>r.all).length;
+  return s;
+}
+
+/* ============ Render ============ */
+const $ = s => document.querySelector(s);
+function esc(x){return String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function t(k){return T[LANG][k];}
+function L(o){return o ? (o[LANG]||"") : "";}
+function nf(x,d){return new Intl.NumberFormat(LANG==="ru"?"ru-RU":"en-GB",{maximumFractionDigits:d||0,minimumFractionDigits:d||0}).format(x);}
+function pct(x){return nf(x*100)+"%";}
+function chip(st){const m={f:["f","chipF"],a:["a","chipA"],p:["p","chipP"],s:["s","chipS"]}[st];return '<span class="chip '+m[0]+'">'+esc(t(m[1]))+'</span>';}
+
+function renderStatic(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll("[data-t]").forEach(el=>{ const v=t(el.getAttribute("data-t")); if(v!==undefined) el.innerHTML=v; });
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.lang===LANG ? "true":"false"));
+  document.title = LANG==="ru" ? "Маршрут беременности · NomoVita" : "Pregnancy pathway · NomoVita";
+  $("#legend").innerHTML =
+    '<div>'+chip("f")+'<span>'+t("lgF")+'</span></div>'+
+    '<div>'+chip("a")+'<span>'+t("lgA")+'</span></div>'+
+    '<div>'+chip("p")+'<span>'+t("lgP")+'</span></div>'+
+    '<div>'+chip("s")+'<span>'+t("lgS")+'</span></div>';
+}
+
+function renderCounters(sNow){
+  const gaps = STAGES.filter(st=>sNow[st.id].gap>P.gapShow).length;
+  $("#counters").innerHTML =
+   '<div class="counter"><div class="n">'+STAGES.length+'</div><div class="t">'+esc(t("cStages"))+'</div></div>'+
+   '<div class="counter"><div class="n">'+nf(P.N)+'</div><div class="t">'+esc(t("cRecords"))+'</div></div>'+
+   '<div class="counter"><div class="n">'+gaps+'</div><div class="t">'+esc(t("cGaps"))+' '+chip("s")+'</div></div>'+
+   '<div class="counter"><div class="n">'+LEVERS.length+'</div><div class="t">'+esc(t("cLevers"))+'</div></div>';
+}
+
+function cell(key, html){return '<div class="cell"><span class="k">'+esc(t(key))+'</span>'+html+'</div>';}
+function factCell(o){return '<div class="v">'+esc(L(o))+'</div>'+(o.src?'<div class="src">'+esc(L(o.src))+'</div>':'')+chip(o.st)+(o.note?'<div class="src" style="margin-top:6px">'+esc(L(o.note))+'</div>'+chip(o.noteSt||"a"):'');}
+
+function renderChain(sNow){
+  let h = '<div class="chain-head"><div>'+esc(t("hStage"))+'</div><div>'+esc(t("hPkg"))+'</div><div>'+esc(t("hPay"))+'</div><div>'+esc(t("hResp"))+'</div><div>'+esc(t("hGap"))+'</div><div>'+esc(t("hChange"))+'</div></div>';
+  STAGES.forEach((st,i)=>{
+    const g = sNow[st.id]; const shown = g.gap>P.gapShow;
+    h += '<button type="button" class="row" data-stage="'+st.id+'" aria-expanded="'+(SEL===st.id)+'" aria-controls="evidence"><div class="cells">'+
+      cell("hStage",'<div class="stage-n">'+esc(t("stageN"))+' '+(i+1)+'</div><div class="stage-t">'+esc(L(st.title))+'</div><div class="src">'+esc(L(st.norm))+'</div>'+(st.norm.src?'<div class="src">'+esc(L(st.norm.src))+'</div>':'')+chip(st.norm.st))+
+      cell("hPkg",factCell(st.pkg))+
+      cell("hPay",factCell(st.pay))+
+      cell("hResp",factCell(st.resp))+
+      cell("hGap",'<div class="gapv'+(shown?'':' ok')+'">'+pct(g.gap)+'</div><div class="v">'+esc(L(st.gapLabel))+(shown?'':' · '+esc(t("belowThr")))+'</div><div class="bar"><i style="width:'+(g.gap*100).toFixed(1)+'%"></i></div>'+chip("s"))+
+      cell("hChange",'<div class="v">'+esc(L(st.change))+'</div>'+chip("p"))+
+     '</div></button>';
+  });
+  $("#chainBox").innerHTML = h;
+  document.querySelectorAll(".row").forEach(b=>b.addEventListener("click",()=>{SEL=b.dataset.stage;renderAll(false);document.getElementById("evidence").scrollIntoView({behavior:"smooth",block:"nearest"});}));
+}
+
+function sampleTable(st, recs){
+  const rows = recs.slice(0,8);
+  let head='<tr><th>'+esc(t("colId"))+'</th>';
+  let body='';
+  if(st.id==="reg"){ head+='<th>'+esc(t("colWeek"))+'</th>'; }
+  if(st.id==="scr"){ head+='<th>'+esc(t("colWeek"))+'</th><th>'+esc(t("colReason"))+'</th>'; }
+  if(st.id==="comm"){ head+='<th>'+esc(t("colRisk"))+'</th>'; }
+  if(st.id==="pp"){ head+='<th>'+esc(t("colDisc"))+'</th>'; }
+  head+='<th>'+esc(t("colMet"))+'</th></tr>';
+  rows.forEach(r=>{
+    const v=r[st.id];
+    body+='<tr><td class="mono">'+r.id+'</td>';
+    if(st.id==="reg") body+='<td class="mono">'+r.week+'</td>';
+    if(st.id==="scr") body+='<td class="mono">'+r.week+'</td><td>'+esc(t(r.scrWhy==="window"?"rWindow":(r.scrWhy==="ok"?"rOk":"rLate")))+'</td>';
+    if(st.id==="comm") body+='<td>'+esc(r.risk?t("yes"):t("no"))+'</td>';
+    if(st.id==="pp") body+='<td>'+esc(r.disc?t("yes"):t("no"))+'</td>';
+    body+='<td class="'+(v===null?'na':(v?'yes':'no'))+'">'+esc(v===null?t("na"):(v?t("yes"):t("no")))+'</td></tr>';
+  });
+  return '<div class="tblw"><table><thead>'+head+'</thead><tbody>'+body+'</tbody></table></div>';
+}
+
+function extraLine(st, recs, g){
+  if(st.id==="scr"){ const w=recs.filter(r=>r.scrWhy==="window").length, l=recs.filter(r=>r.scrWhy==="late").length; return '<p>'+esc(t("exScr").replace("{m}",nf(g.miss)).replace("{w}",nf(w)).replace("{l}",nf(l)))+'</p>'; }
+  if(st.id==="pp"){ const d=recs.filter(r=>!r.pp && !r.disc).length; return '<p>'+esc(t("exPp").replace("{m}",nf(g.miss)).replace("{d}",nf(d)))+'</p>'; }
+  return "";
+}
+function renderEvidence(sNow, recsNow){
+  const st = STAGES.find(s=>s.id===SEL); const i = STAGES.indexOf(st); const g = sNow[st.id];
+  const lever = st.lever ? LEVERS.find(l=>l.id===st.lever) : (st.via ? LEVERS.find(l=>l.id===st.via) : null);
+  let h = '<div class="label">'+esc(t("stageN"))+' '+(i+1)+'</div><h3 style="margin-top:6px;font-size:22px;font-family:var(--fd);font-weight:300">'+esc(t("eviTitle"))+': '+esc(L(st.title))+'</h3>';
+  h += '<div class="evi-grid">';
+  h += '<div class="box"><h4>'+esc(t("eviNorm"))+' '+chip(st.norm.st)+'</h4><p class="quote">'+esc(L(st.norm))+'</p>'+(st.norm.src?'<p class="src" style="font-size:12.5px;color:var(--muted)">'+esc(L(st.norm.src))+'</p>':'')+
+       '<h4 style="margin-top:14px">'+esc(t("eviNow"))+'</h4>'+st.now.map(x=>'<p>'+chip(x.st)+' '+esc(L(x))+(x.src?' <span style="font-size:12.5px;color:var(--muted)">('+esc(L(x.src))+')</span>':'')+'</p>').join("")+
+       '<h4 style="margin-top:14px">'+esc(t("eviPay"))+' '+chip("a")+'</h4><p>'+esc(L(st.incent))+'</p></div>';
+  h += '<div class="box"><h4>'+esc(t("eviData"))+' '+chip("s")+'</h4>'+
+       '<p><b>'+esc(t("eviFields"))+':</b> '+esc(L(st.fields))+'</p>'+
+       '<p><b>'+esc(t("eviRule"))+':</b> '+esc(L(st.rule))+'</p>'+
+       '<p><b>'+esc(t("eviDenom"))+':</b> '+esc(L(st.denom))+', '+nf(g.den)+'</p>'+
+       '<p style="margin-top:10px"><span class="fig">'+nf(g.miss)+'</span> '+esc(t("of"))+' '+nf(g.den)+' · '+esc(t("eviCount"))+': '+pct(g.gap)+'</p>'+extraLine(st, recsNow, g)+
+       sampleTable(st, recsNow)+'</div>';
+  h += '<div class="box"><h4>'+esc(t("eviChange"))+' '+chip("p")+'</h4><p>'+esc(L(st.change))+'</p>'+
+       (lever?'<p style="margin-top:12px"><button type="button" class="btn" id="goSim" data-lever="'+lever.id+'">'+esc(t("eviGoSim"))+'</button></p>':'')+
+       (function(){const sw=SWITCHES.find(s=>s.stage===st.id); return sw?'<h4 style="margin-top:14px">'+esc(t("swEvi"))+' <span class="chip n">'+esc(t("chipN"))+'</span></h4><p>'+esc(t("swNo"))+' '+sw.n+': '+esc(L(sw.title))+'. '+esc(L(sw.why))+'</p><p style="margin-top:8px"><button type="button" class="btn" id="goSw" data-sw="'+sw.n+'">'+esc(t("swGo"))+'</button></p>':'';})()+
+       '<h4 style="margin-top:14px">'+esc(t("eviLimit"))+'</h4><p>'+esc(L(st.limit))+'</p>'+
+       '<p style="margin-top:14px"><button type="button" class="btn" id="dl">'+esc(t("download"))+'</button></p></div>';
+  h += '</div>';
+  $("#evidence").innerHTML = h;
+  const gs = document.getElementById("goSim");
+  if(gs) gs.addEventListener("click",()=>{ON[gs.dataset.lever]=true;renderAll(false);document.getElementById("sim").scrollIntoView({behavior:"smooth"});});
+  document.getElementById("dl").addEventListener("click",downloadCSV);
+  const gw = document.getElementById("goSw");
+  if(gw) gw.addEventListener("click",()=>{SELSW=+gw.dataset.sw;renderSwitches();document.getElementById("switches").scrollIntoView({behavior:"smooth"});});
+}
+
+function renderNormFindings(){
+  $("#normFind").innerHTML = NORM_FINDINGS.map(x=>'<div class="card"><p>'+chip("f")+' '+esc(L(x.f))+'</p><p class="src" style="font-size:12.5px;color:var(--muted);margin-top:6px">'+esc(L(x.src))+'</p><p style="margin-top:10px">'+chip("a")+' <b>'+esc(t("nfAssess"))+'.</b> '+esc(L(x.a))+'</p></div>').join("");
+}
+
+function renderSwitches(){
+  const row = SW_ALL[SELSW-1]; const sw = SWITCHES.find(s=>s.n===SELSW);
+  $("#swCounters").innerHTML =
+   '<div class="counter"><div class="n">'+SW_COUNT.all+'</div><div class="t">'+esc(t("swAll"))+'</div></div>'+
+   '<div class="counter"><div class="n">'+SW_COUNT.clinical+'</div><div class="t">'+esc(t("swClin"))+'</div></div>'+
+   '<div class="counter"><div class="n">'+SW_COUNT.c0+'</div><div class="t">'+esc(t("swC0"))+'</div></div>'+
+   '<div class="counter"><div class="n">'+SW_COUNT.auto+'</div><div class="t">'+esc(t("swAuto"))+'</div></div>';
+  let g='';
+  SW_ALL.forEach(r=>{ const n=r[0]; const o=SWITCHES.some(s=>s.n===n); const ttl = LANG==="ru"?r[3]:r[4];
+    g+='<button type="button" class="tile '+r[1]+(o?' open':'')+'" data-sw="'+n+'" aria-pressed="'+(n===SELSW)+'" title="'+esc(ttl)+'" aria-label="'+n+'. '+esc(ttl)+'">'+n+'</button>'; });
+  $("#swGrid").innerHTML = g;
+  $("#swKey").innerHTML = '<span class="kc">'+esc(t("kC"))+'</span><span class="ko">'+esc(t("kO"))+'</span><span class="kp">'+esc(t("kP"))+'</span><span class="ki">'+esc(t("kI"))+'</span>';
+  $("#swPrinc").innerHTML = t("swPrinc").map(x=>'<li>'+esc(x)+'</li>').join("");
+  const f=(k,v)=>'<div class="swf"><span class="k">'+esc(t(k))+'</span><div class="v">'+v+'</div></div>';
+  const clsName = {c:"clsC",o:"clsO",p:"clsP",i:"clsI"}[row[1]];
+  const ttl = LANG==="ru"?row[3]:row[4]; const dec = LANG==="ru"?row[5]:row[6];
+  if(sw){
+    const st = STAGES.find(s=>s.id===sw.stage); const si = STAGES.indexOf(st)+1;
+    $("#swCard").innerHTML = '<div class="label">'+esc(t("swNo"))+' '+sw.n+' / 45 · '+esc(t("swFull"))+' · '+esc(t("stageN"))+' '+si+' · '+esc(L(st.title))+'</div>'+
+      '<h3 style="margin-top:8px;font-size:22px;font-family:var(--fd);font-weight:300">'+esc(L(sw.title))+'</h3>'+
+      '<div style="margin-top:8px">'+chip("p")+' <span class="chip n">'+esc(t("chipN"))+'</span></div>'+
+      '<div class="swstate"><b>'+esc(L(sw.before))+'</b><i>&#8594;</i><b>'+esc(L(sw.after))+'</b></div>'+
+      '<div class="swfields">'+f("swCls",esc(t(clsName)))+f("swUrg",esc(typeof sw.urg==="string"?sw.urg:L(sw.urg)))+f("swDec",esc(L(sw.dec)))+f("swOwner",esc(L(sw.owner)))+f("swAct",esc(L(sw.act)))+f("swClose",esc(L(sw.close)))+f("swPay",esc(L(sw.pay)))+'</div>'+
+      '<div class="swwhy"><b>'+esc(t("swWhy"))+'.</b> '+esc(L(sw.why))+'</div>'+
+      '<p style="font-size:12.5px;color:var(--muted);margin-top:12px">'+esc(t("swUrgNote"))+'</p>';
+  } else {
+    $("#swCard").innerHTML = '<div class="label">'+esc(t("swNo"))+' '+row[0]+' / 45 · '+esc(t("swPart"))+'</div>'+
+      '<h3 style="margin-top:8px;font-size:22px;font-family:var(--fd);font-weight:300">'+esc(ttl)+'</h3>'+
+      '<div style="margin-top:8px">'+chip("p")+' <span class="chip n">'+esc(t("chipN"))+'</span></div>'+
+      '<div class="swfields">'+f("swCls",esc(t(clsName)))+f("swUrg",esc(row[2]+(row[0]===6?(LANG==="ru"?" по тяжести":" by severity"):(row[0]===26?(LANG==="ru"?" по риску":" by risk"):""))))+f("swDec",esc(dec))+'</div>'+
+      '<div class="swwhy">'+esc(t("swClosedTxt"))+'</div>'+
+      '<p style="font-size:12.5px;color:var(--muted);margin-top:12px">'+esc(t("swUrgNote"))+'</p>';
+  }
+  document.querySelectorAll(".tile").forEach(b=>b.addEventListener("click",()=>{SELSW=+b.dataset.sw;renderSwitches();}));
+}
+
+function renderLevers(){
+  let h='';
+  LEVERS.forEach(l=>{
+    const st = STAGES.find(s=>s.id===l.stage); const i = STAGES.indexOf(st)+1;
+    h+='<div class="lever'+(ON[l.id]?' on':'')+'"><div class="lever-top"><input class="sw" type="checkbox" id="sw_'+l.id+'" data-lever="'+l.id+'"'+(ON[l.id]?' checked':'')+'>'+
+       '<label for="sw_'+l.id+'"><div class="t">'+esc(L(l.title))+'</div><div class="m">'+esc(t("stageN"))+' '+i+' · '+esc(L(st.title))+'</div></label>'+
+       '<span class="chip k">'+esc(t(l.kind==="econ"?"kEcon":"kOrg"))+'</span></div>'+
+       '<div class="eff"><span>'+esc(t("effLabel"))+'</span><input type="range" min="0" max="100" step="5" value="'+EFF[l.id]+'" data-eff="'+l.id+'" aria-label="'+esc(L(l.title))+'"><output>'+EFF[l.id]+'%</output><span>'+esc(t("effOf"))+'</span>'+chip("a")+'</div></div>';
+  });
+  $("#levers").innerHTML = h;
+  document.querySelectorAll(".sw").forEach(c=>c.addEventListener("change",()=>{ON[c.dataset.lever]=c.checked;renderAll(true);}));
+  document.querySelectorAll("[data-eff]").forEach(r=>r.addEventListener("input",()=>{EFF[r.dataset.eff]=+r.value;r.nextElementSibling.textContent=r.value+"%";renderAll(true);}));
+}
+
+function renderResult(sNow, sAft){
+  let h='<div class="label" style="margin-bottom:10px">'+esc(t("resTitle"))+'</div><div class="rkey"><span class="kn">'+esc(t("keyNow"))+'</span><span class="ka">'+esc(t("keyAft"))+'</span>'+chip("s")+chip("a")+'</div>';
+  STAGES.forEach((st,i)=>{
+    const a=sNow[st.id].share, b=sAft[st.id].share; const d=(b-a)*100;
+    h+='<div class="rline"><div>'+(i+1)+'. '+esc(L(st.title))+'</div><div class="rbars"><div class="rbar now"><i style="width:'+(a*100).toFixed(1)+'%"></i></div><div class="rbar aft"><i style="width:'+(b*100).toFixed(1)+'%"></i></div></div>'+
+       '<div class="rnum">'+pct(a)+'<span class="d">'+pct(b)+(Math.abs(d)>=0.05?' ('+(d>0?'+':'')+nf(d,1)+' '+esc(t("pp"))+')':'')+'</span></div></div>';
+  });
+  h+='<div class="total"><div><b>'+nf(sNow.all)+'</b>'+esc(t("totNow"))+'</div><div><b class="a">'+nf(sAft.all)+'</b>'+esc(t("totAft"))+'</div></div><p style="font-size:12.5px;color:var(--muted);margin-top:6px">'+esc(t("totNote"))+'</p>';
+  const anyOn = LEVERS.some(l=>ON[l.id]);
+  if(!anyOn) h+='<div class="note">'+esc(t("noteOff"))+'</div>';
+  if(ON.p1 && sAft.scr.met!==sNow.scr.met) h+='<div class="note">'+esc(t("noteRoute1"))+'</div>';
+  if(ON.p6 && sAft.pp.met!==sNow.pp.met) h+='<div class="note">'+esc(t("noteRoute6"))+'</div>';
+  h+='<div class="note">'+esc(t("noteSafe"))+'</div>';
+  $("#result").innerHTML = h;
+}
+
+const CASES = (function(){
+  const now = simulate(zeroEff());
+  const full = {};LEVERS.forEach(l=>full[l.id]=l.def/100);
+  const aft = simulate(full);
+  let a=-1,b=-1,c=-1;
+  for(let i=0;i<now.length;i++){
+    if(a<0 && now[i].cat==="L" && aft[i].cat!=="L" && aft[i].scr) a=i;
+    if(b<0 && !now[i].disc && !now[i].pp && aft[i].disc && aft[i].pp) b=i;
+    if(c<0 && now[i].risk && now[i].comm===false && aft[i].comm===true) c=i;
+  }
+  return [{k:"case1",i:a,s:"story1"},{k:"case2",i:b,s:"story2"},{k:"case3",i:c,s:"story3"}];
+})();
+
+function dot(v){ if(v===null) return '<span class="dot x">'+esc(t("na"))+'</span>'; return '<span class="dot '+(v?'y':'n')+'">'+esc(v?t("yes"):t("no"))+'</span>'; }
+function renderCases(recsNow, recsAft){
+  let h='';
+  CASES.forEach(c=>{
+    if(c.i<0){h+='<div class="case"><h3>'+esc(t(c.k))+'</h3><p class="story">'+esc(t("caseNoneLabel"))+'</p></div>';return;}
+    const n=recsNow[c.i], a=recsAft[c.i];
+    let story;
+    if(c.k==="case1"){ const changed = a.cat!=="L" && a.scr; story = t("story1").replace("{w}",n.week).replace("{a}", changed ? t("story1a").replace("{w}",a.week) : t("story1b")); }
+    else if(c.k==="case2"){ story = t("story2").replace("{a}", (a.disc&&a.pp) ? t("story2a") : t("story2b")); }
+    else { story = t("story3").replace("{a}", a.comm ? t("story3a") : t("story3b")); }
+    h+='<div class="case"><div class="id">'+n.id+' '+chip("s")+'</div><h3>'+esc(t(c.k))+'</h3><ul class="steps"><li><span></span><span class="label" style="font-size:10px">'+esc(t("now"))+'</span><span class="label" style="font-size:10px">'+esc(t("after"))+'</span></li>';
+    STAGES.forEach(st=>{ h+='<li><span>'+esc(t("st_"+st.id))+'</span>'+dot(n[st.id])+dot(a[st.id])+'</li>'; });
+    h+='</ul><p class="story">'+esc(story)+'</p></div>';
+  });
+  $("#caseBox").innerHTML = h;
+}
+
+function renderMethod(){
+  const par = [["parN",nf(P.N)],["parEarly",pct(P.early)],["parMid",pct(P.mid)],["parThe",pct(P.ther)],["parPat",pct(P.pat)],["parScrE",pct(P.scrE)],["parScrM",pct(P.scrM)],["parRisk",pct(P.risk)],["parComm",pct(P.comm)],["parDisc",pct(P.disc)],["parPpOn",pct(P.ppOn)],["parPpOff",pct(P.ppOff)]];
+  let tb='<div class="tblw"><table><tbody>'+par.map(p=>'<tr><td>'+esc(t(p[0]))+'</td><td class="mono">'+p[1]+'</td></tr>').join("")+'</tbody></table></div>';
+  const ul = arr => '<ul>'+arr.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul>';
+  $("#methodBox").innerHTML =
+    '<div class="card"><h3>'+esc(t("mData"))+'</h3>'+ul(t("mDataL"))+'</div>'+
+    '<div class="card"><h3>'+esc(t("mRule"))+'</h3>'+ul(t("mRuleL"))+'</div>'+
+    '<div class="card"><h3>'+esc(t("mParams"))+' '+chip("a")+'</h3>'+tb+'</div>'+
+    '<div class="card"><h3>'+esc(t("mNot"))+'</h3>'+ul(t("mNotL"))+'</div>'+
+    '<div class="card"><h3>'+esc(t("mSrc"))+' '+chip("f")+'</h3>'+ul(SOURCES.map(s=>L(s)))+'<p style="font-size:13px;color:var(--muted);margin-top:8px">'+esc(t("mSrcNote"))+'</p></div>'+
+    '<div class="card"><h3>'+esc(t("mAbbr"))+'</h3><dl class="abbr">'+ABBR[LANG].map(a=>'<dt>'+esc(a[0])+'</dt><dd>'+esc(a[1])+'</dd>').join("")+'</dl></div>';
+}
+
+function downloadCSV(){
+  const now = simulate(zeroEff()), aft = simulate(curEff());
+  const cols = ["record","weeks_at_registration_now","registered_by_10w_now","internist_exam_now","home_visit_3d_now","screen1_in_window_now","risk_factors","panel_36w_now","summary_1d_now","postnatal_on_time_now","weeks_at_registration_after","registered_by_10w_after","internist_exam_after","home_visit_3d_after","screen1_in_window_after","panel_36w_after","summary_1d_after","postnatal_on_time_after"];
+  const b = v => v===null ? "" : (v ? 1 : 0);
+  const lines = [cols.join(",")];
+  now.forEach((n,i)=>{const a=aft[i];lines.push([n.id,n.week,b(n.reg),b(n.ther),b(n.pat),b(n.scr),b(n.risk),b(n.comm),b(n.disc),b(n.pp),a.week,b(a.reg),b(a.ther),b(a.pat),b(a.scr),b(a.comm),b(a.disc),b(a.pp)].join(","));});
+  const blob = new Blob(["﻿"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="nomovita_pregnancy_pathway_synthetic.csv"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+function renderAll(keepLevers){
+  const recsNow = simulate(zeroEff()); const recsAft = simulate(curEff());
+  const sNow = stats(recsNow), sAft = stats(recsAft);
+  renderCounters(sNow); renderChain(sNow); renderEvidence(sNow, recsNow); renderNormFindings(); renderSwitches();
+  if(!keepLevers) renderLevers(); else document.querySelectorAll(".lever").forEach((el,i)=>el.classList.toggle("on",ON[LEVERS[i].id]));
+  renderResult(sNow, sAft); renderCases(recsNow, recsAft);
+}
+
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{LANG=b.dataset.lang;renderStatic();renderMethod();renderAll(false);}));
+renderStatic(); renderMethod(); renderAll(false);
+</script>
+</body>
+</html>
