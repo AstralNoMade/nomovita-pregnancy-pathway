@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -244,8 +244,8 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-con
       <a href="#chain" data-t="navChain"></a><a href="#switches" data-t="navSw"></a><a href="#sim" data-t="navSim"></a><a href="#intl" data-t="navIntl"></a><a href="#cases" data-t="navCases"></a><a href="#method" data-t="navMethod"></a>
     </nav>
     <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="ru" aria-pressed="true">RU</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
     </div>
   </div>
 </header>
@@ -513,7 +513,7 @@ const T = {
   tagline:"Решения с правом на жизнь",navSw:"Переключатели",navChain:"Цепочка",navSim:"Стимулы",navCases:"Случаи",navMethod:"Данные и метод",
   kicker:"Модуль NomoVita · Здоровье матери · демонстрация на синтетических данных",
   title:"Маршрут беременности: как увидеть разрыв в данных и как стимулы могут изменить маршрут",
-  lead:"Инструмент раскладывает каждый этап наблюдения беременной на шесть звеньев: что положено по норме, каким пакетом это покрыто, как за это платят, кто отвечает, где маршрут рвётся и что можно изменить. Каждый разрыв считается по записям о помощи и показывается вместе с данными, на которых он найден. Под цепочкой работает реестр переключателей маршрута, ноу-хау основательницы NomoVita.",
+  lead:"Инструмент раскладывает каждый этап наблюдения беременной на шесть звеньев: что положено по норме, каким пакетом это покрыто, как за это платят, кто отвечает, где маршрут рвётся и что можно изменить. Каждый разрыв считается по записям набора и показывается вместе с данными, на которых он найден. Под цепочкой работает реестр переключателей маршрута, ноу-хау основательницы NomoVita.",
   chipS:"Синтетика",
   synthBanner:"<b>Все записи на странице синтетические.</b> 1 000 условных беременностей без персональных данных. Значения разрывов заданы для демонстрации работы инструмента и не описывают реальную систему здравоохранения. Нормы и способы оплаты приведены по действующим актам Республики Казахстан с указанием пункта; где акты их не устанавливают, это отмечено.",
   cStages:"этапов маршрута",cRecords:"синтетических беременностей",cGaps:"этапов выше порога 10% в синтетическом наборе",cLevers:"предложений к рассмотрению",
@@ -564,7 +564,7 @@ const T = {
   mData:"Данные",mDataL:[
    "Синтетический набор: 1 000 записей, у каждой условный номер, срок при постановке и отметки этапов. Набор строится заново при каждом открытии страницы с одним и тем же начальным числом, поэтому результат воспроизводим.",
    "В рабочем режиме инструмент предполагается строить на тех же полях из записей организации: дата постановки и срок беременности, направления и их результаты, патронажи, исследования с датой и сроком, выписка с датой получения.",
-   "По замыслу персональные данные не нужны: достаточно обезличенного номера записи; порядок обезличивания определяет владелец данных.","Для работы на реальных данных нужны обезличенная выгрузка с этими полями и разрешение её владельца. Сроков и результатов демонстрация не обещает."],
+   "По замыслу не нужны ни имена, ни ИИН: достаточно номера записи, поэтому выгрузка будет псевдонимизированной, а не анонимной; порядок обезличивания определяет владелец данных.","Для работы на реальных данных нужны обезличенная (псевдонимизированная) выгрузка с этими полями и разрешение её владельца. Сроков и результатов демонстрация не обещает."],
   mRule:"Правило разрыва",mRuleL:[
    "Разрыв этапа равен доле записей, где норма этапа не выполнена. Знаменатель указан у каждого этапа.",
    "Этап отмечается как разрыв, если доля больше 10%. Порог принят как допущение.",
@@ -592,7 +592,7 @@ const T = {
   tagline:"Decisions with a right to life",navSw:"Switches",navChain:"Chain",navSim:"Incentives",navCases:"Cases",navMethod:"Data and method",
   kicker:"NomoVita module · Maternal health · demonstration on synthetic data",
   title:"Pregnancy pathway: how to see a gap in the data and how incentives could change the pathway",
-  lead:"The tool breaks each stage of antenatal care into six links: what the norm requires, which package covers it, how it is paid, who is responsible, where the pathway breaks, and what could change. Each gap is computed from care records and shown together with the data behind it. Underneath the chain runs the pathway switch registry, the know-how of NomoVita's founder.",
+  lead:"The tool breaks each stage of antenatal care into six links: what the norm requires, which package covers it, how it is paid, who is responsible, where the pathway breaks, and what could change. Each gap is counted from the records of the set and shown together with the data behind it. Underneath the chain runs the pathway switch registry, the know-how of NomoVita's founder.",
   chipS:"Synthetic",
   synthBanner:"<b>All records on this page are synthetic.</b> 1,000 simulated pregnancies with no personal data. Gap values are set to demonstrate how the tool works and do not describe the real health system. Norms and payment methods follow legal acts in force in the Republic of Kazakhstan, with the clause cited; where the acts do not set them, this is marked.",
   cStages:"pathway stages",cRecords:"synthetic pregnancies",cGaps:"stages above the 10% threshold in the synthetic set",cLevers:"proposals for consideration",
@@ -643,7 +643,7 @@ const T = {
   mData:"Data",mDataL:[
    "Synthetic set: 1,000 records, each with an arbitrary number, gestational age at registration and stage marks. The set is rebuilt each time the page opens from the same seed, so results are reproducible.",
    "In live use the tool is intended to read the same fields from an organisation's records: registration date and gestational age, referrals and their results, home visits, tests with date and gestational age, discharge summary with date received.",
-   "By design no personal data is needed: an anonymised record number is enough; the owner of the data sets the anonymisation procedure.","Work on real data needs an anonymised extract with these fields and its owner's permission. The demo promises no timelines or results."],
+   "By design no names or identity numbers are needed: a record number is enough, so the extract is pseudonymised rather than anonymous; the owner of the data sets the de-identification procedure.","Work on real data needs a de-identified (pseudonymised) extract with these fields and its owner's permission. The demo promises no timelines or results."],
   mRule:"Gap rule",mRuleL:[
    "A stage gap is the share of records where the stage norm is not met. Each stage states its denominator.",
    "A stage is flagged as a gap if the share exceeds 10%. The threshold is an assumption.",
@@ -695,7 +695,7 @@ const INTL = {
   {country:{ru:"Англия",en:"England"}, year:"2013/14-2021/22",
    mech:{ru:"Оплата за фазу маршрута ведущему поставщику",en:"Payment per pathway phase to a lead provider"},
    what:{ru:"Маршрут делился на три фазы: дородовая, роды, послеродовая. По каждой фазе заказчик платил единый платёж ведущему поставщику (lead provider), которого выбирала женщина; помощь других поставщиков оплачивал он сам. После обзора Better Births (2016) национальной целью стала непрерывность ведения акушеркой (Midwifery Continuity of Carer).",en:"The pathway was split into three phases: antenatal, delivery, postnatal. For each phase the commissioner made one payment to the lead provider chosen by the woman, who paid for care given by other providers. After the Better Births review (2016), midwifery continuity of carer became a national target."},
-   result:{ru:"С 2021/22 оплата за путь прямо названа нерекомендуемой: помощь финансируется через фиксированный элемент контракта, сумма считается как цена, умноженная на плановый объём, взаиморасчёты между поставщиками не должны требоваться. Вне пакета оставались, в частности, ранняя беременность и экстренная гинекология, фетальная медицина, интенсивная терапия, помощь врача общей практики, психиатрия. Срок общинной послеродовой помощи не задан (п. 229), и заказчикам предписано вводить локальные индикаторы, чтобы момент передачи ответственности был безопасным (п. 233). Национальная цель по непрерывности отменена 21.09.2022 из-за кадровой ситуации; тресты без минимальной безопасной укомплектованности обязаны немедленно приостановить модель.",en:"Since 2021/22 pathway payment has been explicitly not recommended: care is funded through the fixed element of the contract, calculated as price times planned volume, and payments between providers should not be needed. Left outside the package were, among others, early pregnancy and emergency gynaecology, fetal medicine, intensive care, general practitioner care and mental health. No time period is set for community postnatal care (para 229), and commissioners must introduce local indicators so that the handover of responsibility is safe (para 233). The national continuity of carer target was withdrawn on 21 September 2022 because of staffing; trusts without minimum safe staffing must suspend the model immediately."},
+   result:{ru:"С 2021/22 оплата за путь больше не является рекомендуемым способом оплаты: помощь финансируется через фиксированный элемент контракта, сумма считается как цена, умноженная на плановый объём, взаиморасчёты между поставщиками не должны требоваться. Вне пакета оставались, в частности, ранняя беременность и экстренная гинекология, фетальная медицина, интенсивная терапия, помощь врача общей практики, психиатрия. Срок общинной послеродовой помощи не задан (п. 229), и в описании этой оплаты заказчикам рекомендовано вводить локальные индикаторы исходов и опыта пациенток, чтобы момент передачи ответственности был безопасным (п. 233). Национальная цель по непрерывности отменена 21.09.2022 из-за кадровой ситуации; тресты без минимальной безопасной укомплектованности обязаны немедленно приостановить модель.",en:"Since 2021/22 pathway payment has no longer been the recommended payment approach: care is funded through the fixed element of the contract, calculated as price times planned volume, and payments between providers should not be needed. Left outside the package were, among others, early pregnancy and emergency gynaecology, fetal medicine, intensive care, general practitioner care and mental health. No time period is set for community postnatal care (para 229), and the guidance on that payment says commissioners should introduce local outcome and patient experience indicators so that the timing of the handover of responsibility is safe (para 233). The national continuity of carer target was withdrawn on 21 September 2022 because of staffing; trusts without minimum safe staffing must suspend the model immediately."},
    st:"f",
    src:{ru:"NHS England, NHS Payment Scheme 2026/27, Annex B, пп. 196, 200, 207, 229, 233: https://www.england.nhs.uk/wp-content/uploads/2026/03/26-27NHSPS-Annex-B-Guidance-on-currencies.pdf; письмо NHS England PR2011 от 21.09.2022: https://www.england.nhs.uk/wp-content/uploads/2022/09/B2011-Midwifery-Continuity-of-Carer-letter-210922.pdf",en:"NHS England, NHS Payment Scheme 2026/27, Annex B, paras 196, 200, 207, 229, 233: https://www.england.nhs.uk/wp-content/uploads/2026/03/26-27NHSPS-Annex-B-Guidance-on-currencies.pdf; NHS England letter PR2011 of 21 September 2022: https://www.england.nhs.uk/wp-content/uploads/2022/09/B2011-Midwifery-Continuity-of-Carer-letter-210922.pdf"},
    stage:"all", lever:null},
@@ -795,7 +795,7 @@ const INTL = {
 };
 
 /* ============ Engine ============ */
-let LANG = "ru";
+let LANG = new URLSearchParams(location.search).get("lang")==="ru" ? "ru" : "en";
 const ON = {}; const EFF = {};
 LEVERS.forEach(l => { ON[l.id] = false; EFF[l.id] = l.def; });
 let SEL = "reg";

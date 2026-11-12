@@ -6,7 +6,7 @@ Demo version 1.0, 11 November 2026. All records are synthetic; there is no perso
 
 ## Run
 
-Open `index.html` in a modern browser. No server, build step or external data is needed. Fonts load from Google Fonts; without a network the page uses system fonts. The RU / EN switch is in the top right corner.
+Open `index.html` in a modern browser. No server, build step or external data is needed. Fonts load from Google Fonts; without a network the page uses system fonts. The page opens in English (add `?lang=ru` to the address to open it in Russian); the RU / EN switch is in the top right corner.
 
 ## What is inside
 
