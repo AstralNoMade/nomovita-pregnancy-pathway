@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NomoVita Care Navigator</title>
+<style>
+:root{--bg:#fbf9fc;--mist:#f3edf5;--white:#fff;--l1:#faf3f8;--l2:#f4e4ef;--l3:#ebcce0;--l4:#dda9cb;--l5:#b96fa4;--l6:#9a5590;--l7:#84447a;--text:#26212a;--head:#121014;--muted:#6e6574;--line:#e8dfe9;--line2:#d7c7d6;--warn:#b8513f}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;overflow-wrap:anywhere}
+main{max-width:1200px;margin:auto;padding:28px 20px}
+header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--line2);padding-bottom:14px}
+.brand{font-weight:600;letter-spacing:.14em;color:var(--l7);font-size:14px}
+small,.muted{color:var(--muted)}
+h1{font-size:34px;font-weight:300;letter-spacing:-.5px;line-height:1.15;margin:26px 0 10px;color:var(--head)}
+h1 em{font-style:normal;color:var(--l7)}
+h2{font-size:20px;font-weight:500;color:var(--head);margin:0 0 6px}
+h3{font-size:17px;margin:8px 0;color:var(--head)}
+.banner{padding:14px 16px;background:var(--l2);border-left:3px solid var(--l7);margin:16px 0;border-radius:0 4px 4px 0}
+.banner.warn{background:var(--white);border:1px solid var(--warn);border-left-width:4px;color:var(--text)}
+.banner.warn b{color:var(--warn)}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:20px 0}
+.metric{background:var(--white);border:1px solid var(--line);padding:14px;border-radius:4px;font-size:14px}
+.metric strong{font-size:30px;font-weight:300;display:block;color:var(--l7)}
+.tools{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin:8px 0}
+.tools .field{display:flex;flex-direction:column}
+.tools label{margin:0 0 3px}
+.timebar{background:var(--mist);border:1px solid var(--line);border-radius:4px;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.timebar .date{font-weight:600;color:var(--head)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0}
+.card{padding:18px;background:var(--white);border:1px solid var(--line);border-top:4px solid var(--l6);border-radius:4px;min-width:0}
+.card.closed{border-top-color:var(--l4);background:var(--l1)}
+.card.flagged{border-top-color:var(--warn)}
+.pill{display:inline-block;padding:2px 8px;background:var(--l2);color:var(--l7);font-size:12px;font-weight:700;border-radius:3px;margin:0 4px 4px 0}
+.pill.warn{background:#fff;color:var(--warn);border:1px solid var(--warn)}
+.why{background:var(--l1);border:1px solid var(--l3);border-radius:4px;padding:10px 12px;margin:10px 0;font-size:14px}
+.why h4{margin:0 0 6px;font-size:14px;color:var(--l7)}
+.flag{border-top:1px solid var(--l3);padding-top:8px;margin-top:8px}
+.flag:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.flag dl{margin:4px 0 0;display:grid;grid-template-columns:auto 1fr;gap:2px 8px}
+.flag dt{font-weight:600;color:var(--muted)}
+.flag dd{margin:0}
+.ref{font-size:12px;color:var(--muted);margin:6px 0}
+label{display:block;margin:12px 0 4px;font-size:13px;font-weight:600}
+select,input,button{font:inherit;color:var(--text);border:1px solid var(--line2);background:var(--white);padding:9px 10px;border-radius:4px;max-width:100%}
+select,input{width:100%}
+.tools select{width:auto;min-width:150px}
+button{cursor:pointer}
+button:hover{background:var(--l2)}
+button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--l5);outline-offset:2px}
+button.primary{color:#fff;background:var(--l7);border-color:var(--l7)}
+button.primary:hover{background:var(--l6)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+#status{min-height:28px;color:var(--l7);font-weight:600;margin:10px 0}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.panels3{display:grid;grid-template-columns:1fr;gap:22px;margin-top:22px}
+.panel{border-top:1px solid var(--line2);padding-top:14px;min-width:0}
+.entry{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rules{width:100%;border-collapse:collapse;font-size:14px}
+.rules th,.rules td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+.rules th{background:var(--l2)}
+.tablewrap{overflow-x:auto}
+a{color:var(--l7)}
+footer{padding:26px 0 10px;color:var(--muted);font-size:13px;border-top:1px solid var(--line2);margin-top:28px}
+footer p{margin:4px 0}
+@media(max-width:850px){.cards,.panels{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}h1{font-size:28px}main{padding:16px}}
+@media(max-width:420px){.tools .field,.tools select,.tools button{width:100%}.timebar button{width:100%}}
+</style></head><body><main>
+<header><span class="brand">NOMOVITA CARE NAVIGATOR</span><small>DEMO 1.0 &middot; SYNTHETIC DATA</small></header>
+<h1>From a flagged gap<br>to a <em>documented closure.</em></h1>
+<p>A demonstration of a follow-up tracker and care navigator that runs on written rules and synthetic data. It flags delayed results, missed visits and open handoffs, names who owns the next step and shows when a case is closed. <b>Rules, not AI: every flag comes from a written rule shown with it.</b></p>
+<div class="banner"><b>Synthetic demonstration only.</b> No real patients, clinical decisions, live notifications or external services. Dates and deadlines are illustrative workflow data, not clinical guidance. Do not enter personal information.</div>
+<div class="metrics" id="metrics" aria-label="Case counts"></div>
+<div class="timebar"><span>Demo date: <span class="date" id="demodate"></span></span><button id="advance" class="primary">Advance demo date by 1 day</button><button id="back">Back to 18 Nov 2026</button><small>Flags and reminders appear as dates pass.</small></div>
+<div class="tools">
+<div class="field"><label for="filter">Show</label><select id="filter"><option value="all">All cases</option><option value="open">Open</option><option value="flagged">Flagged</option><option value="closed">Closed</option></select></div>
+<div class="field"><label for="ownerfilter">Owner</label><select id="ownerfilter"><option value="all">All owners</option><option value="unassigned">Unassigned</option></select></div>
+<button id="scan" class="primary">Check follow-up queue</button><button id="export">Export JSON</button><button id="reset">Reset synthetic demo</button></div>
+<div id="status" role="status" aria-live="polite"></div>
+<section class="cards" id="cards" aria-label="Synthetic care cases"></section>
+<div class="panels">
+<section class="panel"><h2>Patient notification queue (simulation)</h2><div class="banner warn"><b>Simulation. Nothing is sent: no SMS, email, push or messenger message leaves this page.</b></div><div id="messages"></div></section>
+<section class="panel"><h2>Coordinator queue (internal)</h2><p class="muted">In-page simulation for coordinators. Nothing is emailed or texted.</p><div id="notices"></div></section>
+</div>
+<div class="panels3">
+<section class="panel"><h2>Action and closure trail</h2><p class="muted">Demo audit log, not a tamper-proof clinical record.</p><div id="audit"></div></section>
+<section class="panel"><h2>Rules</h2><p class="muted">Rules, not AI. These four written rules are the only source of flags. Dates and deadlines are illustrative, not clinical recommendations.</p><div class="tablewrap"><table class="rules" id="rules"></table></div></section>
+</div>
+<footer><p>Demo version 1.0, 19 November 2026 &middot; Synthetic data only &middot; Rules, not AI &middot; Nothing is sent; the demo state stays in this browser unless you export it as JSON</p><p>Companion to the <a href="https://astralnomade.github.io/nomovita-pregnancy-pathway/">NomoVita Pregnancy Pathway module</a></p><p>Copyright 2026 Leila Ishbayeva, NOMOVITA LLP. Apache License 2.0.</p></footer>
+</main><script src="model.js"></script><script src="ui.js"></script></body></html>

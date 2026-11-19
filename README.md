@@ -18,6 +18,10 @@ Open `index.html` in a modern browser. No server, build step or external data is
 - **International evidence.** Nine international cards (country programmes and two reviews), each labelled as a fact with a primary source or a study estimate and given with a DOI or an official URL; two checks of Kazakh tariffs and reward rules against the acts; five hypotheses to test in Kazakhstan. Negative results and withdrawn programmes are included.
 - **Synthetic cases, data and method.**
 
+## Care navigator
+
+The folder `navigator/` holds the NomoVita Care Navigator, a companion demo built on 18 and 19 November 2026: a follow-up tracker on five synthetic cases with four written flag rules (rules, not AI). Open it at https://astralnomade.github.io/nomovita-pregnancy-pathway/navigator/ (no login). It has its own README, LICENSE and NOTICE.
+
 ## Data
 
 A synthetic set of 1,000 pregnancies is generated in the browser from a fixed seed (mulberry32, seed 20261111), so results are reproducible. All parameters are listed on the page and in the code (`const P`). Gap values are set to demonstrate how the tool works and do not describe the health system of Kazakhstan. Stages in the set are independent except two links set by parameters (stage 1 → stage 4, stage 6 → stage 7).
@@ -40,11 +44,11 @@ This is a demonstration, not a forecast, a recommendation or an effect estimate.
 
 ## Know-how
 
-The full pathway switch registry (states, owners, immediate actions, closing conditions and payment effects for all 45 switches) is the know-how of Leila Ishbayeva, founder of NomoVita. This repository contains only what `index.html` shows.
+The full pathway switch registry (states, owners, immediate actions, closing conditions and payment effects for all 45 switches) is the know-how of Leila Ishbayeva, founder of NomoVita. Of the registry, this repository contains only what `index.html` shows; the care navigator in `navigator/` refers to two of the open switches (26 and 44).
 
 ## License
 
-This repository, including `index.html` and the text of the seven open switches, is released under the Apache License 2.0 (see `LICENSE`). The full switch registry is not part of it.
+This repository, including `index.html`, the text of the seven open switches and the care navigator in `navigator/`, is released under the Apache License 2.0 (see `LICENSE`). The full switch registry is not part of it.
 
 ## Contact
 
